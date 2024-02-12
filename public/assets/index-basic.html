@@ -1,0 +1,95 @@
+<style>
+        body {
+                background: #302c31;
+        }
+        .container {
+                height: 100%;
+                width: 100%;
+                /* Make it a grid */
+                display: grid;
+
+                /* 8 columns and 4 rows */
+                grid-template-columns: repeat(8, 70px);
+                grid-template-rows: repeat(4, 70px);
+
+                /* Make the layout dense = fill out any "holes" and leave uncompleted rows if necessary */
+                /* Try commenting the dense option out to see the difference */
+                grid-auto-flow: dense;
+
+                align-content: center;
+                justify-content: center;
+                gap: 8px;
+        }
+
+        .box {
+                background: white;
+        }
+
+        /* Here we make some if the tiles different size */
+        /* to see the effect of the grid layout */
+        .box:is(:nth-child(2), :nth-child(8), :nth-child(10)) {
+                grid-column: span 2;
+                grid-row: span 1;
+        }
+
+        .box:is(:nth-child(3), :nth-child(7), :nth-child(13)) {
+                grid-column: span 2;
+                grid-row: span 2;
+        }
+</style>
+<body>
+<!--    Spawn multiple boxes -->
+<div class="container" id="container">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+</div>
+</div>
+</body>
+<script>
+        // Try smaller numbers to see more tilt
+        let constrain = 30;
+        // the part where mouse movement will be taken into account
+        // replace with 'body' to consider the whole body of the webpage
+        let mouseOverContainer = document.getElementById("container");
+        // select all our boxes
+        let boxes = document.getElementsByClassName("box");
+
+        function transforms(x, y, el) {
+                let box = el.getBoundingClientRect();
+                let calcX = -(y - box.y - (box.height / 2)) / constrain;
+                let calcY = (x - box.x - (box.width / 2)) / constrain;
+
+                // try smaller perspective for more tilt. (may produce some fun artifacts)
+                return "perspective(500px) "
+                        + "   rotateX("+ calcX +"deg) "
+                        + "   rotateY("+ calcY +"deg) ";
+        }
+
+        function transformElement(el, xyEl) {
+                el.style.transform  = transforms.apply(null, xyEl);
+        }
+
+        mouseOverContainer.onmousemove = function(e) {
+                let xy = [e.clientX, e.clientY];
+                window.requestAnimationFrame(function(){
+                        // Calculate the transform for all our boxes
+                        for (const box of boxes) {
+                                let position = xy.concat([box]);
+                                transformElement(box, position);
+                        }
+                });
+        };
+</script>

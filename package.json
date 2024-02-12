@@ -1,0 +1,24 @@
+{
+  "name": "devs-love-coffee",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.4.1",
+    "@astrojs/mdx": "^2.1.1",
+    "@astrojs/rss": "^4.0.5",
+    "@astrojs/sitemap": "^3.0.5",
+    "astro": "^4.3.3",
+    "typescript": "^5.3.3",
+    "utopia-core-scss": "^1.0.0"
+  },
+  "devDependencies": {
+    "sass": "^1.70.0"
+  }
+}

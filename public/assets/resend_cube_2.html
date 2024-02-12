@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resend Cube Lookalike</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.142.0/build/three.module.js",
+                "OrbitControls":"https://cdn.jsdelivr.net/npm/three@0.142.0/examples/jsm/controls/OrbitControls.js",
+                "UnrealBloomPass":"https://cdn.jsdelivr.net/npm/three@0.142.0/examples/jsm/postprocessing/UnrealBloomPass.js",
+                "EffectComposer":"https://cdn.jsdelivr.net/npm/three@0.142.0/examples/jsm/postprocessing/EffectComposer.js",
+                "RenderPass":"https://cdn.jsdelivr.net/npm/three@0.142.0/examples/jsm/postprocessing/RenderPass.js",
+                "tween": "https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@18.5.0/dist/tween.esm.js"
+            }
+        }
+    </script>
+</head>
+<body>
+
+<script type="module">
+    import * as THREE from 'three';
+    import TWEEN from 'tween';
+    import { UnrealBloomPass } from 'UnrealBloomPass';
+    import { EffectComposer } from 'EffectComposer';
+    import { RenderPass } from 'RenderPass';
+    import { OrbitControls } from 'OrbitControls';
+
+    const CUBES_PER_SIDE = 3;
+
+    function createBoxWithRoundedEdges( width, height, depth, radius0, smoothness ) {
+        let shape = new THREE.Shape();
+        let eps = 0.00001;
+        let radius = radius0 - eps;
+        shape.absarc( eps, eps, eps, -Math.PI / 2, -Math.PI, true );
+        shape.absarc( eps, height -  radius * 2, eps, Math.PI, Math.PI / 2, true );
+        shape.absarc( width - radius * 2, height -  radius * 2, eps, Math.PI / 2, 0, true );
+        shape.absarc( width - radius * 2, eps, eps, 0, -Math.PI / 2, true );
+        let geometry = new THREE.ExtrudeBufferGeometry( shape, {
+            depth: depth - radius0 * 2,
+            bevelEnabled: true,
+            bevelSegments: smoothness * 2,
+            steps: 1,
+            bevelSize: radius,
+            bevelThickness: radius0,
+            curveSegments: smoothness
+        });
+
+        geometry.center();
+
+        return geometry;
+    }
+
+    function makeCubes() {
+        const material = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, metalness: 1, roughness: 0.11 });
+        const numCubes = CUBES_PER_SIDE;
+        // Create the group, we will add layers to the group
+        const cubes = new THREE.Object3D();
+        // iterate over all dimensions
+        const offset = (numCubes - 1) / 2;
+        for(let i = 0; i < numCubes; i ++) {
+            // create the layer
+            const layer = new THREE.Object3D();
+            for(let j = 0; j < numCubes; j ++) {
+                for(let k = 0; k < numCubes; k ++) {
+                    const geom = createBoxWithRoundedEdges(1, 1, 1, .17, 20);
+                    const x = (i - offset) * 1.03;
+                    const y = (j - offset) * 1.03;
+                    const z = (k - offset) * 1.03;
+                    geom.translate(x, y, z);
+                    const cube = new THREE.Mesh(geom, material);
+                    layer.add(cube);
+                }
+            }
+            cubes.add(layer);
+        }
+        const wrapper = new THREE.Object3D();
+        wrapper.add(cubes);
+        return wrapper;
+    }
+
+    function tRotate( cube, delay ) {
+        // rotate the wrapped cube 90 deg along y/z axis
+        if (Math.random() > 0.5) {
+            cube.rotateY(Math.PI / 2);
+        }
+        else {
+            cube.rotateZ(Math.PI / 2);
+        }
+        // pick a random layer to rotate
+        const sideIndex = Math.floor(Math.random() * CUBES_PER_SIDE);
+        const side = cube.children[sideIndex];
+
+        // pick a random direction to rotate
+        const angles = {
+            x: Math.random() > 0.5 ? -Math.PI : Math.PI,
+            y:0,
+            z:0
+        }
+
+        // pick a random time to wait between rotations
+        const pause = Math.random() * 1000;
+
+        new TWEEN.Tween(side.rotation)
+            .delay(pause)
+            .to( {
+                x: side.rotation._x + angles.x,
+                y: side.rotation._y + angles.y,
+                z: side.rotation._z + angles.z
+            }, delay )
+            .onComplete(function() {
+                setTimeout( tRotate, pause, cube, delay );
+            })
+            .start();
+    }
+
+
+    // Create the scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color( 0x000000 );
+
+    // Create the light
+    const light = new THREE.PointLight( 0xffffff, 100, 500 );
+    light.position.set( 0, 5, 10 );
+    scene.add( light );
+    const light2 = new THREE.PointLight( 0xffffff, 10, 500 );
+    light2.position.set( 0, -10, -5 );
+    scene.add( light2 );
+
+    // Create the camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    // Create the renderer
+    const renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // make it sharper
+    renderer.setPixelRatio(window.devicePixelRatio * 1.5);
+    document.body.appendChild(renderer.domElement);
+
+    // Create effects
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(1000, 1000), 1.5, 0.4, 0.85)
+    bloomPass.threshold = 0.4
+    bloomPass.strength = 0.7
+    bloomPass.radius = 0.2
+    bloomPass.renderToScreen = true
+
+    var composer = new EffectComposer(renderer);
+    composer.setSize(window.innerWidth, window.innerHeight);
+    var renderPass = new RenderPass(scene, camera);
+
+    composer.addPass(renderPass);
+    composer.addPass(bloomPass);
+
+    // Create a cube
+    const cube = makeCubes();
+    scene.add(cube);
+
+    // cube.children[0] = the wrapped cube; cube.children[0].children[0] = one side of the wrapped cube
+    tRotate(cube.children[0], 2000);
+
+    // Position the camera
+    camera.position.z = 6;
+
+    const controls = new OrbitControls(camera,renderer.domElement);
+    // disable zoom
+    controls.enableZoom = false;
+    // disable pan
+    controls.enablePan = false;
+
+    // Animate the cube
+    function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.005;
+        cube.rotation.y += 0.005;
+        cube.rotation.z += 0.005;
+        controls.update();
+        TWEEN.update();
+        composer.render();
+    }
+    animate();
+</script>
+</body>
+</html>

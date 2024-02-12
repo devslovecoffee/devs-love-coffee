@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resend Cube</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.142.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three-addons@1.2.0/build/three-addons.min.js"></script>
+
+<script type="module">
+    function createBoxWithRoundedEdges( width, height, depth, radius0, smoothness ) {
+        let shape = new THREE.Shape();
+        let eps = 0.00001;
+        let radius = radius0 - eps;
+        shape.absarc( eps, eps, eps, -Math.PI / 2, -Math.PI, true );
+        shape.absarc( eps, height -  radius * 2, eps, Math.PI, Math.PI / 2, true );
+        shape.absarc( width - radius * 2, height -  radius * 2, eps, Math.PI / 2, 0, true );
+        shape.absarc( width - radius * 2, eps, eps, 0, -Math.PI / 2, true );
+        let geometry = new THREE.ExtrudeBufferGeometry( shape, {
+            depth: depth - radius0 * 2,
+            bevelEnabled: true,
+            bevelSegments: smoothness * 2,
+            steps: 1,
+            bevelSize: radius,
+            bevelThickness: radius0,
+            curveSegments: smoothness
+        });
+
+        geometry.center();
+
+        return geometry;
+    }
+
+    function makeCubes() {
+        const material = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, metalness: 1, roughness: 0.11 });
+        const numCubes = 3;
+        // Create the group, we will add cubes to the group
+        const cubes = new THREE.Group();
+        // iterate over all dimensions
+        for (let i = -Math.floor(numCubes / 2); i <= Math.floor(numCubes / 2); i++) {
+            for (let j = -Math.floor(numCubes / 2); j <= Math.floor(numCubes / 2); j++) {
+                for (let k = -Math.floor(numCubes / 2); k <= Math.floor(numCubes / 2); k++) {
+                    // adding the cubes
+                    const geom = createBoxWithRoundedEdges(1, 1, 1, .17, 20);
+                    geom.translate(i, j, k);
+                    const cube = new THREE.Mesh(geom, material);
+                    cubes.add(cube);
+                }
+            }
+        }
+        return cubes;
+    }
+
+    // Create the scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color( 0x000000 );
+
+    // Create the light
+    const light = new THREE.PointLight( 0xffffff, 100, 500 );
+    light.position.set( 0, 5, 10 );
+    scene.add( light );
+    const light2 = new THREE.PointLight( 0xffffff, 10, 500 );
+    light2.position.set( 0, -10, -5 );
+    scene.add( light2 );
+
+    // Create the camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    // Create the renderer
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Create a cube
+    const cube = makeCubes();
+    scene.add(cube);
+
+    // Position the camera
+    camera.position.z = 6;
+
+    const controls = new THREE_ADDONS.OrbitControls(camera,renderer.domElement);
+
+    // Animate the cube
+    function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.005;
+        cube.rotation.y -= 0.005;
+        controls.update();
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
+</body>
+</html>

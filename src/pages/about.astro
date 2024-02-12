@@ -1,0 +1,27 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+	<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+</head>
+<body>
+<Header />
+<main>
+	<h1 style="color:var(--color-highlight)">About Me</h1>
+	<h3>Maker, doer, part-time thinker, future writer, developer @acreom. Currently making stuff and gathering learnings I will write about in 10 years. Also, I love coffee ☕. Read more.</h3>
+	<h2>Colophon</h2>
+	<p>Devs Love Coffee is a personal blog by me. It is built with Astro, a new static site builder that I am currently trying out. The font used is Inter, and the site is hosted on Vercel. The source code is available on Github.</p>
+	<h2>Links</h2>
+	<ul>
+		<li>hi@devslovecoffee.com</li>
+		<li>Github</li>
+		<li>X</li>
+	</ul>
+</main>
+</body>
+</html>
