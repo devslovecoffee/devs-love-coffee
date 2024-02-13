@@ -1,26 +1,28 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import HeaderBlur from "./HeaderBlur.astro";
 
 const { pathname } = Astro.url;
 const subpath = pathname.match(/[^\/]+/g);
+const transformSubpathName = (name) => {
+ 	return name.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+};
 ---
 
 <header>
-	<div class="progressive-blur-wrapper">
-		<div class="progressive-blur"></div>
-		<div class="progressive-blur"></div>
-		<div class="progressive-blur"></div>
-		<div class="progressive-blur"></div>
-		<div class="progressive-blur"></div>
-		<div class="progressive-blur"></div>
-	</div>
+	<HeaderBlur />
 	<nav>
-		<HeaderLink href="/">{SITE_TITLE}{subpath && `/${subpath}`}</HeaderLink>
+		<div class="current-route">
+			<HeaderLink class="current-route__main-title" href="/" class:list={[{ active: !subpath}]}>{SITE_TITLE}</HeaderLink>
+			{subpath?.map((sPath, i) => (
+				<span class="current-route__divider">/</span><HeaderLink class="current-route__subpath" class:list={[{ active: i === subpath?.length - 1}]} href={`/${subpath.slice(0, i + 1).join('/')}`} key={sPath}>{transformSubpathName(sPath)}</HeaderLink>
+			))}
+		</div>
 		<div class="internal-links">
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/projects">Projects</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			{subpath?.[0] !== 'blog' && <HeaderLink href="/blog">Blog</HeaderLink>}
+			{subpath?.[0] !== 'projects' && <HeaderLink href="/projects">Projects</HeaderLink>}
+			{subpath?.[0] !== 'about' && <HeaderLink href="/about">About</HeaderLink>}
 		</div>
 	</nav>
 </header>
@@ -32,113 +34,6 @@ const subpath = pathname.match(/[^\/]+/g);
 		left: 0;
 		margin: 0;
 
-		.progressive-blur-wrapper {
-			position: fixed;
-			z-index: 5;
-			inset: 0 0 auto 0;
-			height: calc(var(--space-3xl));
-			pointer-events: none;
-
-			div {
-				position: absolute;
-				inset: 0;
-			}
-
-			&:before {
-				position: absolute;
-				inset: 0;
-				content: "";
-				z-index: 1;
-				backdrop-filter: blur(0.5px);
-				mask: linear-gradient(
-						to top,
-						rgba(0, 0, 0, 0) 0%,
-						rgba(0, 0, 0, 1) 12.5%,
-						rgba(0, 0, 0, 1) 25%,
-						rgba(0, 0, 0, 0) 37.5%
-				);
-			}
-
-			& > div:nth-of-type(1) {
-				z-index: 2;
-				backdrop-filter: blur(1px);
-				mask: linear-gradient(
-						to top,
-						rgba(0, 0, 0, 0) 12.5%,
-						rgba(0, 0, 0, 1) 25%,
-						rgba(0, 0, 0, 1) 37.5%,
-						rgba(0, 0, 0, 0) 50%
-				);
-			}
-
-			& > div:nth-of-type(2) {
-				z-index: 3;
-				backdrop-filter: blur(2px);
-				mask: linear-gradient(
-						to top,
-						rgba(0, 0, 0, 0) 25%,
-						rgba(0, 0, 0, 1) 37.5%,
-						rgba(0, 0, 0, 1) 50%,
-						rgba(0, 0, 0, 0) 62.5%
-				);
-			}
-			& > div:nth-of-type(3) {
-				z-index: 4;
-				backdrop-filter: blur(4px);
-				mask: linear-gradient(
-						to top,
-						rgba(0, 0, 0, 0) 37.5%,
-						rgba(0, 0, 0, 1) 50%,
-						rgba(0, 0, 0, 1) 62.5%,
-						rgba(0, 0, 0, 0) 75%
-				);
-			}
-			& > div:nth-of-type(4) {
-				z-index: 5;
-				backdrop-filter: blur(8px);
-				mask: linear-gradient(
-						to top,
-						rgba(0, 0, 0, 0) 50%,
-						rgba(0, 0, 0, 1) 62.5%,
-						rgba(0, 0, 0, 1) 75%,
-						rgba(0, 0, 0, 0) 87.5%
-				);
-			}
-			& > div:nth-of-type(5) {
-				z-index: 6;
-				backdrop-filter: blur(16px);
-				mask: linear-gradient(
-						to top,
-						rgba(0, 0, 0, 0) 62.5%,
-						rgba(0, 0, 0, 1) 75%,
-						rgba(0, 0, 0, 1) 87.5%,
-						rgba(0, 0, 0, 0) 100%
-				);
-			}
-			& > div:nth-of-type(6) {
-				z-index: 7;
-				backdrop-filter: blur(32px);
-				mask: linear-gradient(
-						to top,
-						rgba(0, 0, 0, 0) 75%,
-						rgba(0, 0, 0, 1) 87.5%,
-						rgba(0, 0, 0, 1) 100%
-				);
-			}
-			&:after {
-				position: absolute;
-				inset: 0;
-				content: "";
-				z-index: 8;
-				backdrop-filter: blur(64px);
-				mask: linear-gradient(
-						to top,
-						rgba(0, 0, 0, 0) 87.5%,
-						rgba(0, 0, 0, 1) 100%
-				);
-			}
-		}
-
 		nav {
 			display: flex;
 			align-items: center;
@@ -146,21 +41,72 @@ const subpath = pathname.match(/[^\/]+/g);
 			position: relative;
 			z-index: 100;
 
-			a {
-				padding: var(--space-xs) var(--space-s);
-				color: var(--color-secondary);
-				border-bottom: 4px solid transparent;
-				text-decoration: none;
+			.current-route {
+				display: flex;
+				align-items: center;
 
-				&.home {
-					color: var(--color-primary);
+				span {
+					font-size: var(--step-1);
 				}
 
-				&.active {
-					text-decoration: none;
-					color: var(--color-highlight);
+				&__main-title {
+					color: var(--color-primary);
+					padding: var(--space-xs) var(--space-3xs) var(--space-xs) var(--space-s);
+
+					&.active {
+						text-decoration: none;
+						color: var(--color-highlight);
+					}
+
+					&:not(.active) {
+						color: var(--color-secondary);
+						&:hover {
+							color: var(--color-primary);
+						}
+					}
+				}
+
+				&__subpath {
+					color: var(--color-secondary);
+					padding: var(--space-xs) var(--space-3xs);
+
+					&.active {
+						text-decoration: none;
+						color: var(--color-highlight);
+					}
+
+					&:hover:not(.active) {
+						color: var(--color-primary);
+					}
+				}
+
+				&__divider {
+					user-select: none;
+					color: var(--color-secondary);
 				}
 			}
+			.internal-links {
+				a {
+					padding: var(--space-xs) var(--space-s);
+					color: var(--color-secondary);
+					border-bottom: 4px solid transparent;
+					text-decoration: none;
+
+					&.home {
+						color: var(--color-primary);
+					}
+
+					&.active {
+						text-decoration: none;
+						color: var(--color-highlight);
+					}
+
+					&:hover {
+						color: var(--color-primary);
+					}
+				}
+			}
+
 		}
 	}
 </style>
