@@ -3,7 +3,8 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+import BlogLink from "../../components/BlogLink.astro";
+import BlogLinks from "../../components/BlogLinks.astro";
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -17,49 +18,6 @@ const posts = (await getCollection('blog')).sort(
 		<style lang="scss">
 			main {
 				padding: var(--space-s) 0;
-				ul {
-					width: 100%;
-					li {
-						width: 100%;
-						padding: 0 var(--space-s);
-
-						&:hover {
-							background: rgba(var(--color-highlight-rgb), 0.24);
-						}
-
-						.post {
-							text-decoration: none;
-							transition: 0.2s ease;
-
-
-
-							&__title-wrapper {
-								display: flex;
-								align-items: baseline;
-								gap: var(--space-2xs);
-
-								&__title {
-									color: var(--color-primary);
-									line-height: 1;
-								}
-
-								&__date {
-									margin: 0;
-									color: var(--color-secondary);
-								}
-							}
-
-							&__excerpt {
-								margin: var(--space-s) 0 0;
-								color: var(--color-secondary);
-							}
-						}
-
-						hr {
-							margin: var(--space-3xs) 0 0;
-						}
-					}
-				}
 			}
 		</style>
 	</head>
@@ -67,24 +25,7 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a class="post" href={`/blog/${post.slug}/`}>
-									<div class="post__title-wrapper">
-										<h2 class="post__title-wrapper__title">{post.data.title}</h2>
-										<p class="post__title-wrapper__date">
-											(<FormattedDate date={post.data.pubDate} />)
-										</p>
-									</div>
-									<p class="post__excerpt">{post.data.excerpt}</p>
-								</a>
-								<hr />
-							</li>
-						))
-					}
-				</ul>
+				<BlogLinks />
 			</section>
 		</main>
 	</body>

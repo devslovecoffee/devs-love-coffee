@@ -115,8 +115,21 @@ b {
 a {
 	color: var(--accent);
 }
+
 a:hover {
 	color: var(--accent);
+}
+
+a.internal::after {
+	content: ' ↙';
+	font-size: 0.8em;
+	color: var(--color-secondary);
+}
+
+a.external::after {
+	content: ' ↗';
+	font-size: 0.8em;
+	color: var(--color-secondary);
 }
 
 p {

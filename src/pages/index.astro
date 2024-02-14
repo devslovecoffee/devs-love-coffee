@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BlogLinks from "../components/BlogLinks.astro";
 ---
 
 <!doctype html>
@@ -11,16 +12,17 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>Hi! I’m Peter. Front-end developer, part-time runner, paper books reader, coffee drinker, and an occasional writer.</h1>
-			<h2>Recent</h2>
-			<h2>About</h2>
-			<h3>Maker, doer, part-time thinker, future writer, developer @acreom. Currently making stuff and gathering learnings I will write about in 10 years. Also, I love coffee ☕. Read more.</h3>
-			<h2>Quick Links</h2>
-			<ul>
-				<li>hi@devslovecoffee.com</li>
-				<li>Github</li>
-				<li>X</li>
+		<main style="padding: 0; min-height: 100vh; margin-top: var(--space-3xl);">
+			<h1 style="padding: 0 var(--space-s);">Hi! I’m Peter. Front-end developer, part-time runner, paper books reader, coffee drinker, and an occasional writer.</h1>
+			<h2 style="padding: 0 var(--space-s);">Recent</h2>
+			<BlogLinks num="2" />
+			<h2 style="padding: 0 var(--space-s);">About</h2>
+			<h3 style="padding: 0 var(--space-s);">Maker, doer, part-time thinker, future writer, developer @acreom. Currently making stuff and gathering learnings I will write about in 10 years. Also, I love coffee ☕. <a class="internal" href="/about">Read more</a>.</h3>
+			<h2 style="padding: 0 var(--space-s);">Quick Links</h2>
+			<ul style="padding: 0 var(--space-s);">
+				<li><a class="external" href="mailto:hi@devslovecoffee.com">hi@devslovecoffee.com</a></li>
+				<li><a class="external" href="https://github.com/petttr1" target="_blank">Github</a></li>
+				<li><a class="external" href="https://twitter.com/devslovecoffee" target="_blank">X</a></li>
 			</ul>
 		</main>
 	</body>

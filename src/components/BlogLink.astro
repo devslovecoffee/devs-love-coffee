@@ -1,0 +1,54 @@
+---
+import FormattedDate from "./FormattedDate.astro";
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, excerpt, slug } = post.data;
+---
+<a class="post" href={`/blog/${post.slug}`}>
+    <div class="post__title-wrapper">
+        <h2 class="post__title-wrapper__title">{title}</h2>
+        <p class="post__title-wrapper__date">
+            (<FormattedDate date={pubDate} />)
+        </p>
+    </div>
+    <p class="post__excerpt">{excerpt}</p>
+    <hr />
+</a>
+<style lang="scss">
+  .post {
+    text-decoration: none;
+    transition: 0.2s ease;
+
+    &__title-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      gap: var(--space-2xs);
+
+      @media (min-width: 769px) {
+        flex-direction: row;
+      }
+
+      &__title {
+        color: var(--color-primary);
+        line-height: 1;
+      }
+
+      &__date {
+        margin: 0;
+        color: var(--color-secondary);
+        flex-shrink: 0;
+      }
+    }
+
+    &__excerpt {
+      padding-top: var(--space-s);
+      margin: 0;
+      color: var(--color-secondary);
+    }
+
+    hr {
+      margin: var(--space-3xs) 0 0;
+    }
+  }
+</style>
