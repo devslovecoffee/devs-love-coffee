@@ -19,7 +19,7 @@ the current lights setup is shown below:
 
 The effect it creates is not ideal - we never have a whole side of the cube highlighted, but always only a circle within the side - demonstrated by the video below. To make the lightning look better, we can use different kind of lights - `RectAreaLight`.
 
-![The current lights](/images/point-lights.mov)
+![The current lights](/images/point-lights.gif)
 
 RectAreaLights are literally just panes which emit light. If we make them big enough, we can make the whole side of the cube highlighted. To make the RectAreaLights work though, we have to change the controls of our cube - instead of orbit controls, we need to rotate the whole cube. We will see why in a while.
 

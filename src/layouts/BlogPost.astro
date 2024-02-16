@@ -2,7 +2,6 @@
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
@@ -25,8 +24,8 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 					line-height: 1;
 
 					h1 {
-						margin: 0 0 0.5em 0;
 						text-align: left;
+						color: var(--color-highlight);
 					}
 
 					&__date {
@@ -35,6 +34,7 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 						justify-content: space-between;
 						margin-bottom: 0.5em;
 						color: var(--color-secondary);
+						margin-top: var(--space-s);
 
 						&__last-updated-on {
 							font-style: italic;
@@ -43,8 +43,13 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 				}
 
 				&__content {
-					width: min(100%, 34rem);
+					width: min(100%, 45rem);
 					margin: auto auto var(--space-3xl);
+
+					:global(p) {
+						width: min(100%, 34rem);
+						margin: var(--space-s) auto 0;
+					}
 				}
 			}
 		</style>

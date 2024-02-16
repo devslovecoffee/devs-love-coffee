@@ -73,13 +73,15 @@ h6 {
 	font-weight: 300;
 }
 
-.prose h1,
 .prose h2,
 .prose h3,
 .prose h4,
 .prose h5,
 .prose h6{
 	color: var(--color-highlight);
+	margin-left:auto;
+	margin-right: auto;
+	width: min(100%, 34rem);
 }
 
 h1 {
@@ -169,7 +171,8 @@ code {
 }
 
 pre {
-	padding: 1.5em;
+	padding: var(--space-m);
+	margin-top: var(--space-s);
 	border-radius: 8px;
 }
 
