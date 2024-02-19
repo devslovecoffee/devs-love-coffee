@@ -9,7 +9,7 @@ pubDate: 'Jul 12 2023'
 <iframe loading="lazy" title="The Resend cube lookalike" src="/assets/resend_cube_3.html" height="400px" width="100%" style="border:none;"></iframe>
 <figcaption align = "center">The final result. Interactive on desktop (code at the end of the post).</figcaption>
 
-This is the final part of the Resend cube lookalike series where we are trying to recreate the Resend cube. This time we fix the lights and add the "god rays" which are a pretty neat trick as we find out. You can get caught up with parts 1 and 2 here: [part 1](https://devslovecoffee.com/making-the-resend-cube-from-scratch-using-three-js/), [part 2](https://devslovecoffee.com/resend-cube-lookalike-part-2/).
+This is the final part of the Resend cube lookalike series where we are trying to recreate the Resend cube. This time we fix the lights and add the "god rays" which are a pretty neat trick as we find out. You can get caught up with part 1, <a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js">where we have built the cube itself</a>, and part 2, <a class="internal" href="/blog/resend-cube-lookalike-part-2">where we have added animations and some cool effects</a>.
 
 ## Lights
 
