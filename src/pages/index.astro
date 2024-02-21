@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import BlogLinks from "../components/BlogLinks.astro";
+import Links from "../components/Links.astro";
 ---
 
 <!doctype html>
@@ -17,11 +18,7 @@ import BlogLinks from "../components/BlogLinks.astro";
 			<h2 style="padding: 0 var(--space-s);">Recent</h2>
 			<BlogLinks num={2} />
 			<h2 style="padding: 0 var(--space-s);">Links</h2>
-			<ul style="padding: 0 var(--space-s);">
-				<li><a class="external" href="mailto:hi@devslovecoffee.com">hi@devslovecoffee.com</a></li>
-				<li><a class="external" href="https://github.com/petttr1" target="_blank">Github</a></li>
-				<li><a class="external" href="https://twitter.com/devslovecoffee" target="_blank">X</a></li>
-			</ul>
+			<Links />
 		</main>
 	</body>
 </html>

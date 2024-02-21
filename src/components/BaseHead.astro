@@ -3,6 +3,7 @@
 // all pages through the use of the <BaseHead /> component.
 import '../styles/reset.css'
 import '../styles/global.css';
+import '../styles/variables.scss';
 
 interface Props {
 	title: string;
@@ -49,34 +50,35 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+<script defer data-domain="devslovecoffee.com" data-api="/plausible/api/event" src="/plausible/js/script.js"></script>
+
 <style lang="scss">
-  /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,3840,18,1.618,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=xs,2xl,2xl,24 */
-  /* @link https://utopia.fyi/space/calculator?c=320,16,1.2,3840,18,1.618,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=xs,2xl,2xl,24 */
-  @use 'node_modules/utopia-core-scss/src/utopia' as utopia;
+    /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,3840,18,1.618,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=xs,2xl,2xl,24 */
+    /* @link https://utopia.fyi/space/calculator?c=320,16,1.2,3840,18,1.618,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=xs,2xl,2xl,24 */
+    @use 'node_modules/utopia-core-scss/src/utopia' as utopia;
 
+    :root {
+        @include utopia.generateTypeScale((
+                "minWidth": 320,
+                "maxWidth": 3840,
+                "minFontSize": 16,
+                "maxFontSize": 18,
+                "minTypeScale": 1.2,
+                "maxTypeScale": 1.618,
+                "positiveSteps": 3,
+                "negativeSteps": 2,
+                "prefix": "step-",
+        ));
 
-  :root {
-    @include utopia.generateTypeScale((
-            "minWidth": 320,
-            "maxWidth": 3840,
-            "minFontSize": 16,
-            "maxFontSize": 18,
-            "minTypeScale": 1.2,
-            "maxTypeScale": 1.618,
-            "positiveSteps": 3,
-            "negativeSteps": 2,
-            "prefix": "step-",
-    ));
-
-    @include utopia.generateSpaceScale((
-            "minWidth": 320,
-            "maxWidth": 3840,
-            "minSize": 16,
-            "maxSize": 18,
-            "positiveSteps": (1.5, 2, 3, 4, 6),
-            "negativeSteps": (0.75, 0.5, 0.25),
-            "customSizes": ("s-l"),
-            "prefix": "space-",
-    ));
+        @include utopia.generateSpaceScale((
+                "minWidth": 320,
+                "maxWidth": 3840,
+                "minSize": 16,
+                "maxSize": 18,
+                "positiveSteps": (1.5, 2, 3, 4, 6),
+                "negativeSteps": (0.75, 0.5, 0.25),
+                "customSizes": ("s-l"),
+                "prefix": "space-",
+        ));
   }
 </style>

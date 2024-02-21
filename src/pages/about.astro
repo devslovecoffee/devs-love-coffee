@@ -2,6 +2,8 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import Projects from "../components/Projects.astro";
+import Links from "../components/Links.astro";
 ---
 
 <!doctype html>
@@ -11,17 +13,17 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 </head>
 <body>
 <Header />
-<main>
-	<h1 style="color:var(--color-highlight)">About Me</h1>
-	<h3>Maker, doer, part-time thinker, future writer, developer @acreom. Currently making stuff and gathering learnings I will write about in 10 years. Also, I love coffee ☕. Read more.</h3>
-	<h2>Colophon</h2>
-	<p>Devs Love Coffee is a personal blog by me. It is built with Astro, a new static site builder that I am currently trying out. The font used is Inter, and the site is hosted on Vercel. The source code is available on Github.</p>
-	<h2>Links</h2>
-	<ul>
-		<li>hi@devslovecoffee.com</li>
-		<li>Github</li>
-		<li>X</li>
-	</ul>
+<main style="padding: 0 0 var(--space-l); min-height: 100vh; margin-top: var(--space-3xl);">
+	<h1 style="color:var(--color-highlight); padding: 0 var(--space-s);"">About Me</h1>
+	<h3 style="padding: 0 var(--space-s);">Front-end developer, maker, doer, developer <a class="external" href="https://acreom.com" target="_blank">@acreom</a>. Currently making stuff and gathering learnings I will write about in 10 years. Also, I love coffee ☕.</h3>
+	<h2 style="padding: 0 var(--space-s);">Colophon</h2>
+	<p style="padding: 0 var(--space-s);">This site is statically generated with <a class="external" href="https://astro.build/" target="_blank">Astro</a>. Typescale and spacings are dynamically set using <a class="external" href="https://utopia.fyi/" target="_blank">Utopia</a>.</p>
+	<p style="padding: 0 var(--space-s);">Body copy is set in <a class="external" href="https://github.com/googlefonts/dm-fonts" target="_blank">DM Sans</a>. Italics are set in <a class="external" href="https://github.com/clauseggers/Playfair" target="_blank">Playfair Display</a>. Code is set in <a class="external" href="https://github.com/googlefonts/spacemono" target="_blank">Space Mono</a>.</p>
+	<p style="padding: 0 var(--space-s);">The source code is available on Github.</p>
+	<h2 style="padding: 0 var(--space-s);">Links</h2>
+	<Links />
+	<h2 style="padding: 0 var(--space-s);">Projects</h2>
+	<Projects />
 </main>
 </body>
 </html>

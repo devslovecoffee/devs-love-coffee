@@ -3,7 +3,7 @@ const { title, description, url, image } = Astro.props;
 ---
 <a class="project" href={url}>
     <div class="project__title-wrapper">
-        <h2 class="project__title-wrapper__title">{title}</h2>
+        <h3 class="project__title-wrapper__title">{title}</h3>
     </div>
     <div class="project__image-wrapper">
         <img class="project__image-wrapper__image" src={image} alt={title} />
@@ -18,7 +18,7 @@ const { title, description, url, image } = Astro.props;
 
     &:hover {
       .project__image-wrapper__image {
-        border-radius: var(--space-xl);
+        border-radius: var(--space-l);
       }
     }
 

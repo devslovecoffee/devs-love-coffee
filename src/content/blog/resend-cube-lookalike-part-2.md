@@ -9,7 +9,7 @@ pubDate: 'Jun 19 2023'
 <iframe loading="lazy" title="The Resend cube lookalike" src="/assets/resend_cube_2.html" height="400px" width="100%" style="border:none;"></iframe>
 <figcaption align = "center">The final result. Interactive. (code at the end of the post)</figcaption>
 
-The unfinished stuff from [Making the Resend cube from scratch using Three.js](https://devslovecoffee.com/making-the-resend-cube-from-scratch-using-three-js/) bothered me, So part 2 with bloom and animation is here. This is a continuation of my previous post and builds on the code we have produced, so be sure to check it out and catch up.
+The unfinished stuff from <a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js">Making the Resend cube from scratch using Three.js</a> bothered me, So part 2 with bloom and animation is here. This is a continuation of my previous post and builds on the code we have produced, so be sure to check it out and catch up.
 
 ## First things first
 
@@ -162,7 +162,7 @@ return cubes;
 
 We now create the cube as an object which holds the layers, that hold the actual cubes - exactly as is shown in the picture above. We have also enhanced the cube creation a little bit - the numCubes now works properly and spawns the correct amount of cubes per side, we always center the cube using the offset, and we have added a little bit of spacing between the cubes.
 
-That's all for the structure side of the animation. To rotate the layers, I have found a neat little [function](https://stackoverflow.com/questions/31753860/using-three-js-and-tween-js-to-rotate-object-in-90-degree-increments-to-create-a). It uses the TWEEN library to interpolate between 2 states over some time. It is set up to endlessly repeat itself rotating the layers.
+That's all for the structure side of the animation. To rotate the layers, I have found a neat little <a class="external" href="https://stackoverflow.com/questions/31753860/using-three-js-and-tween-js-to-rotate-object-in-90-degree-increments-to-create-a" target="_blank">function</a>. It uses the TWEEN library to interpolate between 2 states over some time. It is set up to endlessly repeat itself rotating the layers.
 
 The setup process for tween is similar to the others:
 
@@ -489,5 +489,5 @@ Once again, the complete code can be found below:
 </html>
 ```
 
-Part 1 - making the base cube here: [https://devslovecoffee.com/making-the-resend-cube-from-scratch-using-three-js/](https://devslovecoffee.com/making-the-resend-cube-from-scratch-using-three-js/).
-Part 3 where tie it all up here: [https://devslovecoffee.com/resend-cube-lookalike-part-3/](https://devslovecoffee.com/resend-cube-lookalike-part-3/).
+<a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js/">Part 1 - making the base cube here</a>.
+<a class="internal" href="/blog/resend-cube-lookalike-part-3/">Part 3 where tie it all up here</a>.

@@ -19,6 +19,13 @@ const { title, pubDate, excerpt} = post.data;
     text-decoration: none;
     transition: 0.2s ease;
 
+    &:hover {
+      .post__title-wrapper__date::after {
+        opacity: 1;
+        transform: translate(8px, -4px);
+      }
+    }
+
     &__title-wrapper {
       display: flex;
       flex-direction: column;
@@ -38,6 +45,17 @@ const { title, pubDate, excerpt} = post.data;
         margin: 0;
         color: var(--color-secondary);
         flex-shrink: 0;
+        position: relative;
+
+        &:after {
+          position: absolute;
+          content: '→';
+          font-size: var(--step-1);
+          color: var(--color-primary);
+          transition: all 0.2s cubic-bezier(.47,-0.01,1,1.26);
+          transform: translate(0, -4px);
+          opacity: 0;
+        }
       }
     }
 

@@ -78,11 +78,29 @@ h6 {
 .prose h3,
 .prose h4,
 .prose h5,
-.prose h6{
-	/*color: var(--color-highlight);*/
+.prose h6,
+.prose ol,
+.prose ul{
 	margin-left:auto;
 	margin-right: auto;
 	width: min(100%, 34rem);
+}
+
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+	color: var(--color-highlight);
+}
+
+.prose li {
+	margin-left: var(--space-s);
+	padding-left: var(--space-2xs);
+}
+
+.prose li::marker {
+	content: ' -';
 }
 
 h1 {
@@ -137,6 +155,10 @@ a:hover.external::after {
 	transform: translate(3px, 0px);
 }
 
+a.external {
+	margin-right: var(--space-2xs);
+}
+
 a.external::after {
 	position: absolute;
 	content: '↗';
@@ -180,6 +202,7 @@ iframe {
 figcaption {
 	font-family: 'Playfair Display', serif;
 	color: rgba(var(--color-secondary-rgb), 0.6);
+	font-style: italic;
 }
 
 code {

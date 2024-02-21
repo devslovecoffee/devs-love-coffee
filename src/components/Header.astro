@@ -15,13 +15,15 @@ const transformSubpathName = (name: string) => {
 	<nav>
 		<div class="current-route">
 			<HeaderLink class="current-route__main-title" href="/" class:list={[{ active: !subpath}]}>{SITE_TITLE}</HeaderLink>
-			{subpath?.map((sPath, i) => (
-				<span class="current-route__divider">/</span><HeaderLink class="current-route__subpath" class:list={[{ active: i === subpath?.length - 1}]} href={`/${subpath.slice(0, i + 1).join('/')}`}>{transformSubpathName(sPath)}</HeaderLink>
-			))}
+				{
+					subpath?.map((sPath, i) => (
+						<span class="current-route__subpath-wrapper"><span class="current-route__divider">/</span><HeaderLink class="current-route__subpath" class:list={[{ active: i === subpath?.length - 1}]} href={`/${subpath.slice(0, i + 1).join('/')}`}>{transformSubpathName(sPath)}</HeaderLink></span>
+						))
+				}
 		</div>
 		<div class="internal-links">
 			{subpath?.[0] !== 'blog' && <HeaderLink href="/blog">Blog</HeaderLink>}
-			{subpath?.[0] !== 'projects' && <HeaderLink href="/projects">Projects</HeaderLink>}
+			{subpath?.[0] !== 'about' && <HeaderLink href="/about">About</HeaderLink>}
 		</div>
 	</nav>
 </header>
@@ -44,6 +46,15 @@ const transformSubpathName = (name: string) => {
 			.current-route {
 				display: flex;
 				align-items: center;
+
+				&__subpath-wrapper {
+					&:last-of-type {
+						display: none;
+						@media(min-width: 768px) {
+							display: block;
+						}
+					}
+				}
 
 				span {
 					font-size: var(--step-1);

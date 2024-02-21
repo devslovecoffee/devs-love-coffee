@@ -7,13 +7,13 @@ excerpt: A short write-up of how to make cursor-facing, tilted tiles in a bento 
 pubDate: 'Sep 04 2023'
 ---
 
-I was recently playing around with bento layouts (if you don't know what Bento layout / grid is, it's the new trend all the [cool kids](https://bentogrids.com) are doing, [catch up](https://www.webdesignerdepot.com/2023/07/what-is-the-bento-ui-trend-and-how-can-you-get-started/)) and actually automating it a little - basically using grid-auto-flow on grid layout. Then I got an idea: "Could I make the tiles tilt towards the mouse?" Why? - Why not? Let's do it.
+I was recently playing around with bento layouts (if you don't know what Bento layout / grid is, it's the new trend all the <a class="external" href="https://bentogrids.com" target="_blank">cool kids</a> are doing, <a class="external" href="https://www.webdesignerdepot.com/2023/07/what-is-the-bento-ui-trend-and-how-can-you-get-started" target="_blank">catch up</a>) and actually automating it a little - basically using grid-auto-flow on grid layout. Then I got an idea: "Could I make the tiles tilt towards the mouse?" Why? - Why not? Let's do it.
 
 Bento layouts actually don't tilt me, sorry. I just wanted to use this awesome clickbait opportunity for what I've made. This is a semi-demo, semi-tutorial, short post about how to do it.
 
 ## Making a single tile tilt
 
-Tilting a single tile is actually pretty simple and a really nice person - some Armando Canals, already did that ([https://armandocanals.com/posts/CSS-transform-rotating-a-3D-object-perspective-based-on-mouse-position.html](https://armandocanals.com/posts/CSS-transform-rotating-a-3D-object-perspective-based-on-mouse-position.html))
+Tilting a single tile is actually pretty simple and a really nice person - some Armando Canals, <a class="external" href="https://armandocanals.com/posts/CSS-transform-rotating-a-3D-object-perspective-based-on-mouse-position.html" target="_blank">already did that</a>.
 
 All I needed to do was scale it by adding multiple tiles, inside a grid layout. The code is here, with the relevant parts described in the comments:
 
@@ -157,7 +157,7 @@ let calcY = (x - box.x - (box.width / 2)) / constrain;
 
 ## The end (that was fast)
 
-Thanks for reading this quick post. Now that you are a cool kid, tweet (X?) me your best Bento grid <a href="https://x.com/devslovecoffee" target="_blank">@devslovecoffee</a>. 
+Thanks for reading this quick post. Now that you are a cool kid, tweet (X?) me your best Bento grid <a class="external" href="https://x.com/devslovecoffee" target="_blank">@devslovecoffee</a>. 
 
 Don't forget to check out my other posts and projects ☕.
 

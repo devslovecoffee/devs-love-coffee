@@ -23,7 +23,7 @@ The effect it creates is not ideal - we never have a whole side of the cube high
 
 RectAreaLights are literally just panes which emit light. If we make them big enough, we can make the whole side of the cube highlighted. To make the RectAreaLights work though, we have to change the controls of our cube - instead of orbit controls, we need to rotate the whole cube. We will see why in a while.
 
-Starting with some imports, we add the following lines to our importmap (if you don't have an importmap to add to, you might want to check the [part 2](https://devslovecoffee.com/resend-cube-lookalike-part-2/) of this series):
+Starting with some imports, we add the following lines to our importmap (if you don't have an importmap to add to, you might want to check the <a class="internal" href="/blog/resend-cube-lookalike-part-2">part 2</a> of this series):
 
 ```javascript
 "RectAreaLightHelper": "https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/helpers/RectAreaLightHelper.js",
@@ -49,7 +49,7 @@ Rotating the cube, you can see it looks much better. You can also see a huge pan
 
 ### Rotation
 
-Borrowing some code from this [jsfiddle](https://jsfiddle.net/MadLittleMods/n6u6asza/), we can rotate the cube on drag instead of rotating the camera, which stays fixed - allowing us to place the lights outside of the camera view, but still casting light on the cube.
+Borrowing some code from this <a class="external" href="https://jsfiddle.net/MadLittleMods/n6u6asza/" target="_blank">jsfiddle</a>, we can rotate the cube on drag instead of rotating the camera, which stays fixed - allowing us to place the lights outside of the camera view, but still casting light on the cube.
 
 The problem is that there are rotations already going on with the cube. Lucky for us, we can use the same solution we did in part 2 - we just wrap the cube in another object which we apply the rotations to - shown below.
 
@@ -285,9 +285,9 @@ const renderer = new THREE.WebGLRenderer({
 });
 ```
 
-We still can't see the light ray. That is, as I've found out ([here](https://discourse.threejs.org/t/transparent-background/22742) and [here](https://stackoverflow.com/questions/20899326/how-do-i-stop-effectcomposer-from-destroying-my-transparent-background)) because our Bloom pass does not support opacity. The solution - replace the rendering pipeline.
+We still can't see the light ray. That is, as I've found out (<a class="external" href="https://discourse.threejs.org/t/transparent-background/22742" target="_blank">here</a> and <a class="external" href="https://stackoverflow.com/questions/20899326/how-do-i-stop-effectcomposer-from-destroying-my-transparent-background" target="_blank">here</a>) because our Bloom pass does not support opacity. The solution - replace the rendering pipeline.
 
-We will replace our render pass and our effects pass from three with effects from [postprocessing](https://github.com/pmndrs/postprocessing) library by [Poimandres](https://github.com/pmndrs). Let's start by importing it (add to importmap + call inside script)
+We will replace our render pass and our effects pass from three with effects from <a class="external" href="https://github.com/pmndrs/postprocessing" target="_blank">postprocessing</a> library by <a class="external" href="https://github.com/pmndrs" target="_blank">Poimandres</a>. Let's start by importing it (add to importmap + call inside script)
 
 ```javascript
 // add to importmap
@@ -445,7 +445,7 @@ I have refactored the final code, so it is more readable, and as always, you can
 
 And we are done. I think we have a pretty solid Resend cube lookalike. Of course, it will never be exactly the original (and it is not trying to), but I'd say it's close.
 
-Thanks for reading this post (and the series). It's been fun and insightful for me to make it. I certainly have learned a ton of stuff and hope you have as well. I'd be happy to hear any feedback either via email at petttr1[at]gmail[dot]com, or via [Twitter](https://twitter.com/devslovecoffee). 
+Thanks for reading this post (and the series). It's been fun and insightful for me to make it. I certainly have learned a ton of stuff and hope you have as well. I'd be happy to hear any feedback either via email at <a href="mailto:hi@devslovecoffee.com">hi@devslovecoffee.com</a>, or via <a class="external" href="https://twitter.com/devslovecoffee" target="_blank">Twitter</a>. 
 
 ```html
 <!DOCTYPE html>
@@ -762,5 +762,5 @@ Thanks for reading this post (and the series). It's been fun and insightful for 
 </html>
 ```
 
-Part 1 with the basics is here: [https://devslovecoffee.com/making-the-resend-cube-from-scratch-using-three-js/](https://devslovecoffee.com/making-the-resend-cube-from-scratch-using-three-js/).
-Part 2 with the Bloom and Animation here: [https://devslovecoffee.com/resend-cube-lookalike-part-2/](https://devslovecoffee.com/resend-cube-lookalike-part-2/).
+<a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js/">Part 1 with the basics is here</a>.
+<a class="internal" href="/blog/resend-cube-lookalike-part-2/">Part 2 with the Bloom and Animation here</a>.
