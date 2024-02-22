@@ -47,7 +47,7 @@ const { title, description, url, image } = Astro.props;
             content: '↗';
             font-size: var(--step-1);
             color: var(--color-primary);
-            transition: all 0.2s cubic-bezier(.47,-0.01,1,1.26);
+            transition: all 0.2s var(--easing);
             transform: translate(0, 0);
             opacity: 0;
           }
@@ -67,7 +67,7 @@ const { title, description, url, image } = Astro.props;
       margin-top: var(--space-s);
 
       &__image {
-        transition: all 0.2s cubic-bezier(.72,-0.01,.86,1.36);
+        transition: all 0.2s var(--easing);
         max-height: 300px;
       }
     }

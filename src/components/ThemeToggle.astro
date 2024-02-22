@@ -1,0 +1,65 @@
+---
+---
+<button id="themeToggle" class="theme-toggle">
+    <div class="theme-toggle__filler"></div>
+</button>
+
+<style lang="scss">
+    .theme-toggle {
+        border: 0;
+        background: none;
+        padding: var(--space-xs) var(--space-s);
+        color: var(--color-secondary);
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            .theme-toggle__filler {
+                background: var(--color-primary);
+            }
+        }
+
+        &__filler {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            display: inline-block;
+            border: 2px solid var(--color-primary);
+            background: var(--color-background);
+            border-radius: 50%;
+        }
+    }
+</style>
+
+<script is:inline>
+    const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+            return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+        }
+        return 'light';
+    })();
+    document.documentElement.setAttribute('data-theme', theme)
+    window.localStorage.setItem('theme', theme);
+
+    const handleToggleClick = () => {
+        const element = document.documentElement;
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const nextTheme = () => {
+            if (currentTheme === 'light') {
+                return "dark";
+            }
+            if (currentTheme === 'dark') {
+                return 'arc'
+            }
+            return "light";
+        };
+        const selectedTheme = nextTheme();
+        element.setAttribute("data-theme", selectedTheme);
+        localStorage.setItem("theme", selectedTheme);
+    }
+
+    document.getElementById("themeToggle").addEventListener("click", handleToggleClick);
+</script>

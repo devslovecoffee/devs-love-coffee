@@ -1,15 +1,42 @@
 :root {
 	--color-background: #F8F7F4;
-	--color-background-rgb: 248, 247, 244;
 	--color-primary: #092230;
-	--color-primary-rgb: 9, 34, 48;
 	--color-secondary: #54524F;
-	--color-secondary-rgb: 84, 82, 79;
+	--color-secondary-80: rgba(84, 82, 79, 0.8);
 	--color-code: #3C3B39;
-	--color-code-rgb: 60, 59, 57;
 	--background-code-color: rgba(119, 117, 112, 0.1);
 	--color-highlight: #FF6E50;
-	--color-highlight-rgb: 255, 110, 80;
+	--color-highlight-24: rgba(255, 110, 80, 0.24);
+	--color-highlight-74: rgba(255, 110, 80, 0.74);
+	--easing: cubic-bezier(.47,-0.01,1,1.26);
+}
+
+html[data-theme='light'] {
+	--color-background: #F8F7F4;
+	--color-primary: #092230;
+	--color-secondary: #54524F;
+	--color-secondary-80: rgba(84, 82, 79, 0.8);
+	--color-code: #3C3B39;
+	--background-code-color: rgba(119, 117, 112, 0.1);
+}
+
+html[data-theme='dark'] {
+	--color-background: #092230;
+	--color-primary: #F8F7F4;
+	--color-secondary: #C1B9B7;
+	--color-secondary-80: rgba(193, 185, 183, 0.8);
+	--color-code: #E0D0CC;
+	--background-code-color: rgba(119, 117, 112, 0.38);
+}
+
+html[data-theme='arc'] {
+	--color-background: var(--arc-palette-background);
+	--color-primary: var(--arc-palette-title);
+	--color-secondary: var(--arc-palette-foregroundSecondary);
+	--color-secondary-80: var(--arc-palette-foregroundSecondary);
+	--color-code: var(--arc-palette-foregroundTertiary);
+	--background-code-color: var(--arc-palette-minContrastColor);
+	--color-highlight: var(--arc-palette-maxContrastColor);
 }
 
 @font-face {
@@ -164,7 +191,7 @@ a.external::after {
 	content: '↗';
 	font-size: var(--step--1);
 	color: var(--color-secondary);
-	transition: all 0.2s cubic-bezier(.47,-0.01,1,1.26);
+	transition: all 0.2s var(--easing);
 	transform: translate(0px, 3px);
 }
 
@@ -201,7 +228,7 @@ iframe {
 
 figcaption {
 	font-family: 'Playfair Display', serif;
-	color: rgba(var(--color-secondary-rgb), 0.6);
+	color: var(--color-secondary-80);
 	font-style: italic;
 }
 

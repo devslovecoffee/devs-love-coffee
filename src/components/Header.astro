@@ -2,6 +2,7 @@
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
 import HeaderBlur from "./HeaderBlur.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 
 const { pathname } = Astro.url;
 const subpath = pathname.match(/[^\/]+/g);
@@ -24,6 +25,7 @@ const transformSubpathName = (name: string) => {
 		<div class="internal-links">
 			{subpath?.[0] !== 'blog' && <HeaderLink href="/blog">Blog</HeaderLink>}
 			{subpath?.[0] !== 'about' && <HeaderLink href="/about">About</HeaderLink>}
+			<ThemeToggle />
 		</div>
 	</nav>
 </header>
@@ -97,10 +99,11 @@ const transformSubpathName = (name: string) => {
 				}
 			}
 			.internal-links {
+				display: flex;
+				align-items: center;
 				a {
 					padding: var(--space-xs) var(--space-s);
 					color: var(--color-secondary);
-					border-bottom: 4px solid transparent;
 					text-decoration: none;
 
 					&.home {

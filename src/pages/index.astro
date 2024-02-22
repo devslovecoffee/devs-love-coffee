@@ -1,7 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { BLOG_DESCRIPTION } from '../consts';
 import BlogLinks from "../components/BlogLinks.astro";
 import Links from "../components/Links.astro";
 ---
@@ -9,7 +9,7 @@ import Links from "../components/Links.astro";
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title="Home" description={BLOG_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
