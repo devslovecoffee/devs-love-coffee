@@ -20,6 +20,11 @@ const { title, description, url, image } = Astro.props;
       .project__image-wrapper__image {
         border-radius: var(--space-l);
       }
+
+      .project__title-wrapper__title:after {
+        transform: translate(4px, -4px);
+        opacity: 1;
+      }
     }
 
     &__title-wrapper {
@@ -28,13 +33,25 @@ const { title, description, url, image } = Astro.props;
       align-items: baseline;
       gap: var(--space-2xs);
 
-      @media (min-width: 769px) {
+      @media (min-width: 768px) {
         flex-direction: row;
       }
 
       &__title {
         color: var(--color-primary);
         line-height: 1;
+
+        @media(min-width: 768px) {
+          &:after {
+            position: absolute;
+            content: '↗';
+            font-size: var(--step-1);
+            color: var(--color-primary);
+            transition: all 0.2s cubic-bezier(.47,-0.01,1,1.26);
+            transform: translate(0, 0);
+            opacity: 0;
+          }
+        }
       }
 
       &__date {

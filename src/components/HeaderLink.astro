@@ -4,7 +4,6 @@ import type { HTMLAttributes } from 'astro/types';
 type Props = HTMLAttributes<'a'>;
 
 const { href, class: className, ...props } = Astro.props;
-console.log('href', href);
 ---
 
 <a href={href} class:list={[className]} {...props}>

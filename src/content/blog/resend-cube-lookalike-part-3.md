@@ -1,7 +1,7 @@
 ---
 title: The Resend Cube Lookalike Part 3 - Lights, God Rays, Final Touches
 published: true
-heroImage: /images/img-card-3.png
+image: /images/img-card-3.png
 description: A Part 3 of the Step-by-Step Replication of the Resend Cube Using Three.js and a Single HTML File. In this post we enhance the lights, add the god rays and tie it all up.
 excerpt: Part 3 of making the resend cube from scratch using Three.js - Enhancing the Lights, add the God Rays and finishing up.
 pubDate: 'Jul 12 2023'
@@ -762,5 +762,5 @@ Thanks for reading this post (and the series). It's been fun and insightful for 
 </html>
 ```
 
-<a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js/">Part 1 with the basics is here</a>.
-<a class="internal" href="/blog/resend-cube-lookalike-part-2/">Part 2 with the Bloom and Animation here</a>.
+<a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js">Part 1 with the basics is here</a>.
+<a class="internal" href="/blog/resend-cube-lookalike-part-2">Part 2 with the Bloom and Animation here</a>.

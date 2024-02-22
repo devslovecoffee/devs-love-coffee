@@ -32,7 +32,7 @@ const { title, pubDate, excerpt} = post.data;
       align-items: baseline;
       gap: var(--space-2xs);
 
-      @media (min-width: 769px) {
+      @media (min-width: 768px) {
         flex-direction: row;
       }
 
@@ -47,14 +47,16 @@ const { title, pubDate, excerpt} = post.data;
         flex-shrink: 0;
         position: relative;
 
-        &:after {
-          position: absolute;
-          content: '→';
-          font-size: var(--step-1);
-          color: var(--color-primary);
-          transition: all 0.2s cubic-bezier(.47,-0.01,1,1.26);
-          transform: translate(0, -4px);
-          opacity: 0;
+        @media(min-width: 768px) {
+            &:after {
+              position: absolute;
+              content: '→';
+              font-size: var(--step-1);
+              color: var(--color-primary);
+              transition: all 0.2s cubic-bezier(.47,-0.01,1,1.26);
+              transform: translate(0, -4px);
+              opacity: 0;
+            }
         }
       }
     }
