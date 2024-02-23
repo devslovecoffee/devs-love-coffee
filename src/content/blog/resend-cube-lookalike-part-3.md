@@ -7,7 +7,7 @@ excerpt: Part 3 of making the resend cube from scratch using Three.js - Enhancin
 pubDate: 'Jul 12 2023'
 ---
 <figure>
-    <iframe loading="lazy" title="The Resend cube lookalike" src="/assets/resend_cube_3.html" height="400px" width="100%" style="border:none;"></iframe>
+    <iframe title="The Resend cube lookalike" src="/assets/resend_cube_3.html" height="400px" width="100%" style="border:none;"></iframe>
     <figcaption align = "center">The final result. Interactive on desktop (code at the end of the post).</figcaption>
 </figure>
 

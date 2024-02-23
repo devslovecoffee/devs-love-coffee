@@ -6,6 +6,8 @@ import '../styles/global.css';
 
 import {SITE_TITLE} from "../consts";
 
+import  SpeedInsights  from "@vercel/speed-insights/astro"
+
 interface Props {
 	title: string;
 	description: string;
@@ -27,7 +29,7 @@ const transformTitle = () => `${title} | ${SITE_TITLE}`;
 <!-- Font preloads -->
 <link rel="preload" href="/fonts/DMSans-Light.ttf" as="font" type="font/ttf" crossorigin />
 <link rel="preload" href="/fonts/DMSans-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
-<link rel="preload" href="/fonts/PlayfairDisplay-Italic.ttf" as="font" type="font/ttf" crossorigin />
+<link rel="preload" href="/fonts/IBMPlexSerif-LightItalic.ttf" as="font" type="font/ttf" crossorigin />
 <link rel="preload" href="/fonts/SpaceMono-Regular.ttf" as="font" type="font/ttf" crossorigin />
 
 <!-- Canonical URL -->
@@ -53,6 +55,7 @@ const transformTitle = () => `${title} | ${SITE_TITLE}`;
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
 <script defer data-domain="devslovecoffee.com" data-api="/plausible/api/event" src="/plausible/js/script.js"></script>
+<SpeedInsights />
 
 <style lang="scss">
     /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,3840,18,1.618,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=xs,2xl,2xl,24 */

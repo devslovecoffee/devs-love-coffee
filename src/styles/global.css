@@ -65,8 +65,8 @@ html[data-theme='arc'] {
 }
 
 @font-face {
-	font-family: 'Playfair Display';
-	src: url('/fonts/PlayfairDisplay-Italic.ttf');
+	font-family: 'IBM Plex Serif';
+	src: url('/fonts/IBMPlexSerif-LightItalic.ttf');
 	font-style: italic;
 	font-weight: 400;
 	font-display: swap;
@@ -201,7 +201,7 @@ p {
 }
 
 em {
-	font-family: 'Playfair Display', serif;
+	font-family: 'IBM Plex Serif', serif;
 }
 
 textarea {
@@ -228,7 +228,7 @@ iframe {
 }
 
 figcaption {
-	font-family: 'Playfair Display', serif;
+	font-family: 'IBM Plex Serif', serif;
 	color: var(--color-secondary-80);
 	font-style: italic;
 }
