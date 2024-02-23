@@ -5,9 +5,10 @@ description: Step-by-Step Replication of the Resend Cube Using Three.js and a Si
 excerpt: An exploration and tutorial on how to make the resend cube from scratch using Three.js.
 pubDate: 'Jun 15 2023'
 ---
-<iframe loading="lazy" title="The Resend cube lookalike" src="/assets/resend_cube.html" height="400px" width="100%" style="border:none;"></iframe>
-<figcaption align = "center">The final result. Interactive. (code at the end of the post)</figcaption>
-
+<figure>
+    <iframe loading="lazy" title="The Resend cube lookalike" src="/assets/resend_cube.html" height="400px" width="100%" style="border:none;"></iframe>
+    <figcaption align = "center">The final result. Interactive. (code at the end of the post)</figcaption>
+</figure>
 
 4 months ago - on 30th January, I have seen the <a class="external" href="https://resend.com" target="_blank">resend.com</a> webpage with the amazing looking 3D cube. My brain immediately kicked into gear trying to figure out how they did it.
 

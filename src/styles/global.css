@@ -31,11 +31,12 @@ html[data-theme='dark'] {
 
 html[data-theme='arc'] {
 	--color-background: var(--arc-palette-background);
-	--color-primary: var(--arc-palette-title);
+	--color-primary: var(--arc-palette-foregroundPrimary);
 	--color-secondary: var(--arc-palette-foregroundSecondary);
-	--color-secondary-80: var(--arc-palette-foregroundSecondary);
+	--color-secondary-80: var(--arc-palette-foregroundTertiary);
 	--color-code: var(--arc-palette-foregroundTertiary);
-	--background-code-color: var(--arc-palette-minContrastColor);
+	--background-code-color: var(--arc-palette-backgroundExtra);
+	--color-highlight-24: var(--arc-palette-hover);
 	--color-highlight: var(--arc-palette-maxContrastColor);
 }
 
@@ -246,8 +247,6 @@ pre {
 	padding: var(--space-m);
 	margin-top: var(--space-s);
 	border-radius: 8px;
-	position: relative;
-	z-index: 0;
 	font-size: var(--step--1);
 }
 

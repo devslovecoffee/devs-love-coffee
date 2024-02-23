@@ -6,8 +6,10 @@ description: A Part 2 of the Step-by-Step Replication of the Resend Cube Using T
 excerpt: Part 2 of making the resend cube from scratch using Three.js - some more explorations, imports optimizations, adding bloom, and animations.
 pubDate: 'Jun 19 2023'
 ---
-<iframe loading="lazy" title="The Resend cube lookalike" src="/assets/resend_cube_2.html" height="400px" width="100%" style="border:none;"></iframe>
-<figcaption align = "center">The final result. Interactive. (code at the end of the post)</figcaption>
+<figure>
+    <iframe loading="lazy" title="The Resend cube lookalike" src="/assets/resend_cube_2.html" height="400px" width="100%" style="border:none;"></iframe>
+    <figcaption align = "center">The final result. Interactive. (code at the end of the post)</figcaption>
+</figure>
 
 The unfinished stuff from <a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js">Making the Resend cube from scratch using Three.js</a> bothered me, So part 2 with bloom and animation is here. This is a continuation of my previous post and builds on the code we have produced, so be sure to check it out and catch up.
 

@@ -1,5 +1,3 @@
----
----
 <button id="themeToggle" class="theme-toggle">
     <div class="theme-toggle__filler"></div>
 </button>
@@ -16,6 +14,10 @@
         &:hover {
             .theme-toggle__filler {
                 background: var(--color-primary);
+
+              html[data-theme='dark'] & {
+                background: var(--arc-palette-background, var(--color-primary));
+              }
             }
         }
 
@@ -47,11 +49,12 @@
     const handleToggleClick = () => {
         const element = document.documentElement;
         const currentTheme = document.documentElement.getAttribute("data-theme");
+        const usingArc = getComputedStyle(document.documentElement).getPropertyValue('--arc-palette-background') !== '';
         const nextTheme = () => {
             if (currentTheme === 'light') {
                 return "dark";
             }
-            if (currentTheme === 'dark') {
+            if (currentTheme === 'dark' && usingArc) {
                 return 'arc'
             }
             return "light";

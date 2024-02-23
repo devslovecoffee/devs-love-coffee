@@ -17,8 +17,10 @@ Tilting a single tile is actually pretty simple and a really nice person - some 
 
 All I needed to do was scale it by adding multiple tiles, inside a grid layout. The code is here, with the relevant parts described in the comments:
 
-<iframe loading="lazy" title="The bento layout with tiles tilting towards the cursor" src="/assets/index-basic.html" height="500px" width="100%" style="border:none;"></iframe>
-<figcaption align = "center">Bento layout with tiles tilting toward the cursor</figcaption>
+<figure>
+    <iframe loading="lazy" title="The bento layout with tiles tilting towards the cursor" src="/assets/index-basic.html" height="500px" width="100%" style="border:none;"></iframe>
+    <figcaption align="center">Bento layout with tiles tilting toward the cursor</figcaption>
+</figure>
 
 ```html
 
@@ -152,8 +154,10 @@ let calcY = (x - box.x - (box.width / 2)) / constrain;
         return transformString;
     }
 ```
-<iframe loading="lazy" title="The final result with tiles enlarging on hover" src="/assets/index-advanced.html" height="500px" width="100%" style="border:none;"></iframe>
-<figcaption align = "center">The final result</figcaption>
+<figure>
+    <iframe loading="lazy" title="The final result with tiles enlarging on hover" src="/assets/index-advanced.html" height="500px" width="100%" style="border:none;"></iframe>
+    <figcaption align="center">The final result</figcaption>
+</figure>
 
 ## The end (that was fast)
 

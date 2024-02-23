@@ -58,7 +58,7 @@ const displayPosts = num ? posts.slice(0, num) : posts;
       &:hover {
         &:after {
           opacity: 1;
-          html[data-theme='dark'] & {
+          html[data-theme='dark'] &, html[data-theme='arc'] & {
             opacity: 0.35;
           }
         }
