@@ -31,13 +31,13 @@ html[data-theme='dark'] {
 
 html[data-theme='arc'] {
 	--color-background: var(--arc-palette-background);
-	--color-primary: var(--arc-palette-foregroundPrimary);
-	--color-secondary: var(--arc-palette-foregroundSecondary);
-	--color-secondary-80: var(--arc-palette-foregroundTertiary);
-	--color-code: var(--arc-palette-foregroundTertiary);
+	--color-primary: var(--arc-palette-maxContrastColor);
+	--color-secondary: var(--arc-palette-foregroundPrimary);
+	--color-secondary-80: var(--arc-palette-foregroundSecondary);
+	--color-code: var(--arc-palette-foregroundSecondary);
 	--background-code-color: var(--arc-palette-backgroundExtra);
 	--color-highlight-24: var(--arc-palette-hover);
-	--color-highlight: var(--arc-palette-maxContrastColor);
+	--color-highlight: var(--arc-palette-title);
 }
 
 @font-face {

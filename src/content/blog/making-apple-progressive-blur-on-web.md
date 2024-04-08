@@ -8,7 +8,6 @@ pubDate: 'Apr 5 2024'
 Throughout the years, apple consistently delivers great design. They seem to always define (or at least popularize) a new trend, which then storms the world and everyone copies it. One of the trends, they seem to have doubled down on lately, is progressive blur. Some examples can be seen in the app store, maps, and, most recently, the apple vision OS. Seeing all that made me want to see whether it could also be done for the web (aka for the rest of the world not using swiftUI).
 
 ![Examples of Apple Blur](/blog/making-apple-progressive-blur-on-web/apple-blur.png)
-
 *Examples of apple usages of progressive blur*
 
 The idea came to me when I was redesigning my blog (the one you are reading right now). I'd wanted to make the header blurred, but the currently most popular solution - throw a single blur + solid color with opacity turned slightly down at it and call it a day, was just too boring. I wanted to be like apple. I wanted progressive blur.
