@@ -1,13 +1,25 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel/static';
 
 import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
   	site: 'https://devslovecoffee.com',
-	trailingSlash: 'never',
+	adapter: vercel(
+		{
+			imagesConfig: {
+				sizes: [640, 750, 828, 1080, 1200],
+				domains: [],
+				minimumCacheTTL: 60,
+				formats: ["image/avif", "image/webp"]
+			},
+			imageService: true,
+		}
+	),
+	trailingSlash: 'ignore',
   	integrations: [
 		mdx(),
 		sitemap(),

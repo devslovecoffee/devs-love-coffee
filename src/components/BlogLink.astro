@@ -4,7 +4,7 @@ import FormattedDate from "./FormattedDate.astro";
 const { post } = Astro.props;
 const { title, pubDate, excerpt} = post.data;
 ---
-<a class="post" href={`/blog/${post.slug}`}>
+<a class="post" href={`/blog/${post.slug}/`}>
     <div class="post__title-wrapper">
         <h2 class="post__title-wrapper__title">{title}</h2>
         <p class="post__title-wrapper__date">

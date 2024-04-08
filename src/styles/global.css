@@ -131,6 +131,10 @@ h6 {
 	content: ' -';
 }
 
+.prose figure, .prose img {
+	margin-top: var(--space-m);
+}
+
 h1 {
 	font-size: var(--step-3);
 }
