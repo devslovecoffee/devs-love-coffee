@@ -6,6 +6,8 @@ description: A Part 2 of the Step-by-Step Replication of the Resend Cube Using T
 excerpt: Part 2 of making the resend cube from scratch using Three.js - some more explorations, imports optimizations, adding bloom, and animations.
 pubDate: 'Jun 19 2023'
 ---
+import { Image } from 'astro:assets';
+
 <figure>
     <iframe loading="lazy" title="The Resend cube lookalike" src="/assets/resend_cube_2.html" height="400px" width="100%" style="border:none;"></iframe>
     <figcaption align = "center">The final result. Interactive. (code at the end of the post)</figcaption>
@@ -13,7 +15,7 @@ pubDate: 'Jun 19 2023'
 
 The unfinished stuff from <a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js">Making the Resend cube from scratch using Three.js</a> bothered me, So part 2 with bloom and animation is here. This is a continuation of my previous post and builds on the code we have produced, so be sure to check it out and catch up.
 
-## First things first
+## First Things First
 
 In order to do the fun stuff, we need to rework the imports. It works in the current, very simple, setup, but adding more imports - like bloom, or render pass, just won't work, as they are not in the main three.js lib.
 
@@ -128,9 +130,9 @@ The parameters for the bloom effect are adjustable and I have not explored too m
 
 Now we want to add the animation - rotating the sides of the cube. The Resend cube, our inspiration, always rotates 2 opposite sides in random intervals - leading me to believe that the construction of the cube is the following:
 
-![the cube layout](/images/img-layers.png)
- 
-Rotating then is a simple act of rotating layers 1 and 3, 180 degrees (or PI). Sounds easy enough. 
+<Image src="/images/img-layers.png" width="720" alt="The Cube Layout" />
+
+Rotating then is a simple act of rotating layers 1 and 3, 180 degrees (or PI). Sounds easy enough.
 
 Firstly, we need to augment the function used to create the cube.
 
@@ -202,15 +204,16 @@ tRotate(cube.children[0], {x:-Math.PI,y:0,z:0}, 2000, 1000 );
 
 You should notice one side of your cube rotating. It is always the same side though, which doesn't look that good.
 
-### Fancier animation
+### Fancier Animation
 
 To make the feeling better we can do a little trick - rotate the whole cube 90 degrees along one of the axes right before the side rotates, which will produce the effect of rotating a different side every time.
 
-The current setup of the cube would not allow for this because of a simple reason - we already rotate the cube in our animate function. Were we to rotate the whole cube before rotating one of its sides, it would change direction completely, messing up the whole feeling. 
+The current setup of the cube would not allow for this because of a simple reason - we already rotate the cube in our animate function. Were we to rotate the whole cube before rotating one of its sides, it would change direction completely, messing up the whole feeling.
 
 What we need to do is add a wrapper to the cube, rotate the wrapper continuously, and, when the time comes, rotate the wrapped element.
 
-![rotating the cube](/images/img-rotate.png)
+
+<Image src="/images/img-rotate.png" width="720" alt="Rotating the Cube" />
 
 Adding the wrapper is easy - we just add this at the end of our `makeCubes` function:
 
@@ -293,7 +296,7 @@ function tRotate( cube, delay ) {
 tRotate(cube.children[0], 2000);
 ```
 
-## Final remarks
+## Final Remarks
 
 We now have a pretty solid Resend cube lookalike (with our own animation enhancement as well :) ). There are some parts of the Resend cube which we don't have yet, that make id run and looks better. I suspect it is partly due to the lights, but I already have a solution in mind, and the running better part should be fixable with some optimizations.
 

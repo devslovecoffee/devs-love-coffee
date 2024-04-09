@@ -14,7 +14,7 @@ pubDate: 'Jun 15 2023'
 
 4 months later, their recent launch reminded me of this desire of mine to steal it (Steal like an artist reference, yay!). As I have some experience with Three.js, I went right in.
 
-## Start with a boilerplate
+## Start With a Boilerplate
 
 This sets you up with the most basic scene - a single white cube, black background, and standard material on the cube, meaning you should see the shadows and stuff. Pretty neat. You're welcome. (I have actually stolen this and adapted it a bit from <a class="external" href="https://www.3dcodekits.com/simple-boilerplate-code-for-three-js-in-a-single-html-file/" target="_blank">3dcodekits</a>; thanks 3dcodekits, I love you!).
 
@@ -70,7 +70,7 @@ This sets you up with the most basic scene - a single white cube, black backgrou
 </html>
 ```
 
-## Let's make the cube a bit less cuber (more round)
+## Making the Cube More Round
 
 Turns out, three js does not have a direct solution to this. So a quick google search yielded this neat little function (<a class="external" href="https://discourse.threejs.org/t/round-edged-box/1402" target="_blank">source</a>)
 
@@ -132,7 +132,7 @@ scene.add( light2 );
 
 You can play with the material properties and lights (intensities, colors) to create some cool effects.
 
-## Making baby cubes
+## Making Baby Cubes
 
 Here comes the fun part. We will create another function which will call the rounded edges cube function in some nested loops and make 27 cubes. Let's go.
 
@@ -166,7 +166,7 @@ const cube = makeCubes();
 scene.add(cube);
 ```
 
-## Adding controls
+## Adding Controls
 
 As a bonus we can add controls and rotate the cube as we like. If you want to disable the autorotation, just comment away the two `cube.rotation` lines.
 

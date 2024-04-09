@@ -6,6 +6,8 @@ description: A Part 3 of the Step-by-Step Replication of the Resend Cube Using T
 excerpt: Part 3 of making the resend cube from scratch using Three.js - Enhancing the Lights, add the God Rays and finishing up.
 pubDate: 'Jul 12 2023'
 ---
+import { Image } from 'astro:assets';
+
 <figure>
     <iframe title="The Resend cube lookalike" src="/assets/resend_cube_3.html" height="400px" width="100%" style="border:none;"></iframe>
     <figcaption align = "center">The final result. Interactive on desktop (code at the end of the post).</figcaption>
@@ -15,13 +17,13 @@ This is the final part of the Resend cube lookalike series where we are trying t
 
 ## Lights
 
-the current lights setup is shown below:
+The current lights setup is shown below:
 
-![The current lights setup](/images/old-lights.png)
+<Image src="/images/old-lights.png" width="640" alt="The Current Lights Setup" />
 
 The effect it creates is not ideal - we never have a whole side of the cube highlighted, but always only a circle within the side - demonstrated by the video below. To make the lightning look better, we can use different kind of lights - `RectAreaLight`.
 
-![The current lights](/images/point-lights.gif)
+<Image src="/images/point-lights.gif" width="720" alt="Visualization of the Point Lights" />
 
 RectAreaLights are literally just panes which emit light. If we make them big enough, we can make the whole side of the cube highlighted. To make the RectAreaLights work though, we have to change the controls of our cube - instead of orbit controls, we need to rotate the whole cube. We will see why in a while.
 
@@ -55,7 +57,7 @@ Borrowing some code from this <a class="external" href="https://jsfiddle.net/Mad
 
 The problem is that there are rotations already going on with the cube. Lucky for us, we can use the same solution we did in part 2 - we just wrap the cube in another object which we apply the rotations to - shown below.
 
-![The new rotation setup](/images/new-controls.png)
+<Image src="/images/new-controls.png" width="828" alt="The New Rotation Setup" />
 
 To begin, we replace the old wrapper code inside makeCubes function with the following:
 
@@ -82,7 +84,7 @@ We also need to update our tRotate call to account for the added wrapper:
 tRotate(cube.children[0].children[0], 2000);
 ```
 
-Now you should see the cube working exactly as before - the whole cube should be rotating and the sided should be rotating as well. 
+Now you should see the cube working exactly as before - the whole cube should be rotating and the sided should be rotating as well.
 
 Our next step is to remove all logic regarding the orbit controls and replace it with the "drag controls". Below are the lines we are removing (you can search for them in the code):
 
@@ -118,7 +120,7 @@ addEventListener('mousemove', function(e) {
         x: e.offsetX-previousMousePosition.x,
         y: e.offsetY-previousMousePosition.y
     };
-    
+
     if(isDragging) {
         // prepare the rotation
         let deltaRotationQuaternion = new THREE.Quaternion()
@@ -169,7 +171,7 @@ update();
 
 You should be able to rotate the cube again. Awesome. Now for the fancy lights: what you should see right now is a somewhat faded cube - we have lost the direct light on either side. We need to bring that back by adding more rect lights.
 
-### Adding more rect lights
+### Adding More Rect Lights
 
 I have tinkered with the lights, so you don't have to. You're welcome. Here is the configuraiton I personally like:
 
@@ -191,9 +193,9 @@ scene.add( new RectAreaLightHelper( rectLight2 ) );
 ```
 And here is what it looks like from distance:
 
-![The new lights setup](/images/new-light-setup.png)
+<Image src="/images/new-light-setup.png" width="828" alt="The New Lights Setup" />
 
-Pretty sick. I encourage you to play with the light and find out what you like. Pro tip: when positioning the lights, pause the animation by commenting out the following lines:
+Pretty sick. I encourage you to play with the light and find out what you like. Pro-tip: when positioning the lights, pause the animation by commenting out the following lines:
 
 ```javascript
 cube.children[0].rotation.x += 0.005;
@@ -204,15 +206,15 @@ TWEEN.update();
 
 and setting camera.position.z to a high number (like 60), so you get an overview of the scene.
 
-## God rays
+## God Rays
 
-Now let's look at a pretty neat trick I think (might be a complete conspiration by me) the Resend guys did - using the god rays to fix a flaw of the cube where it sometimes almost entirely blends into the background. The image below demonstrates the issue. 
+Now let's look at a pretty neat trick I think (might be a complete conspiration by me) the Resend guys did - using the god rays to fix a flaw of the cube where it sometimes almost entirely blends into the background. The image below demonstrates the issue.
 
-![The almost non-visible cube](/images/non-visible-cube.png)
+<Image src="/images/non-visible-cube.png" width="828" alt="The Almost Non-visible Cube" />
 
 To fix this (or at least I think that's what happened), they introduced an element serving both as a "light source", but more importantly serving as a background for the cube in the case it gets too dark. Giving it a lighter background keeps the outline visible and you won't get "lost" (suddenly realise you don't know what you are looking at).
 
-So how do we add it? This time we don't use the fancy Three.js, but turn to our old friends HTML and CSS. 
+So how do we add it? This time we don't use the fancy Three.js, but turn to our old friends HTML and CSS.
 
 Starting off, we need to place the three canvas above the future light ray. We create a `div` element we will use as the container for our canvas and while we are at it, we also add the light ray divs:
 
@@ -274,9 +276,9 @@ Next we can add the css required to make it work. In the `<style>` tag, add the 
 
 And you are good to go... except that nothing changed. That is because I lied, and we actually need to do some work in three to remove the background opacity and let the light ray shine through.
 
-### Removing scene background
+### Removing Scene Background
 
-This might seem like and easy task - remove the scene background and we are done. At least that's what I thought. The reality is not so bright as we will soon find out. 
+This might seem like and easy task - remove the scene background and we are done. At least that's what I thought. The reality is not so bright as we will soon find out.
 
 We can really start with removing the scene background, which is this line: `scene.background = new THREE.Color( 0x000000 );`. We should then set the rendering to support opacity by adding alpha to renderer options:
 
@@ -364,7 +366,7 @@ function addRendering() {
     composer.addPass(new EffectPass(camera, FXAAPass, bloomPass));
     return composer;
 }
-    
+
 const composer = addRendering();
 ```
 
@@ -384,7 +386,7 @@ animate();
 update();
 ```
 
-with a direct call to requestAnimationFrame: 
+with a direct call to requestAnimationFrame:
 
 ```javascript
 requestAnimationFrame(function render() {
@@ -398,13 +400,13 @@ requestAnimationFrame(function render() {
 update();
 ```
 
-If you've done everything correctly, the light ray should be visible now. The screenshot below shows what it looks like (note: this is a happy case set up to look good). 
+If you've done everything correctly, the light ray should be visible now. The screenshot below shows what it looks like (note: this is a happy case set up to look good).
 
-![The god rays](/images/god-rays.png)
+<Image src="/images/god-rays.png" width="720" alt="The god Rays" />
 
 Based on your screen resolution though, the rays might not look the best - they might not be aligned, or might not reach the dark parts of the cube. Let's fix that.
 
-### Centering the rays to the cube
+### Centering the Rays to the Cube
 
 We can resolve the issues by setting our renderer to a fixed size and centering the god rays to the cube, making them always align perfectly. Starting off, we set the size of our composer to 600 by 600 pixels - `composer.setSize(600, 600);`.
 
@@ -441,13 +443,13 @@ Now the cube stays in the center regardless of the window size (and we don't hav
 
 Now if you resize the window, the light ray stays in the same place, always seemingly radiating light towards the cube.
 
-## Closing thoughts
+## Closing Thoughts
 
 I have refactored the final code, so it is more readable, and as always, you can find it at the end of the post.
 
 And we are done. I think we have a pretty solid Resend cube lookalike. Of course, it will never be exactly the original (and it is not trying to), but I'd say it's close.
 
-Thanks for reading this post (and the series). It's been fun and insightful for me to make it. I certainly have learned a ton of stuff and hope you have as well. I'd be happy to hear any feedback either via email at <a href="mailto:hi@devslovecoffee.com">hi@devslovecoffee.com</a>, or via <a class="external" href="https://twitter.com/devslovecoffee" target="_blank">Twitter</a>. 
+Thanks for reading this post (and the series). It's been fun and insightful for me to make it. I certainly have learned a ton of stuff and hope you have as well. I'd be happy to hear any feedback either via email at <a href="mailto:hi@devslovecoffee.com">hi@devslovecoffee.com</a>, or via <a class="external" href="https://twitter.com/devslovecoffee" target="_blank">Twitter</a>.
 
 ```html
 <!DOCTYPE html>
