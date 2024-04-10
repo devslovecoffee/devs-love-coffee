@@ -1,6 +1,5 @@
 ---
 title: Bento Layouts Tilt Me
-published: true
 image: /images/bento-og.png
 description: A short post about making a bento layout tilt toward the pointer using HTML, javascript and css.
 excerpt: A short write-up of how to make cursor-facing, tilted tiles in a bento grid.
