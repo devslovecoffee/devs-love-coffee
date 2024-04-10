@@ -19,7 +19,7 @@ export default defineConfig({
 			imageService: true,
 		}
 	),
-	trailingSlash: 'ignore',
+	trailingSlash: 'never',
   	integrations: [
 		mdx(),
 		sitemap(),
