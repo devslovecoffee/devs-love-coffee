@@ -235,6 +235,7 @@ figcaption {
 	font-family: 'IBM Plex Serif', serif;
 	color: var(--color-secondary-80);
 	font-style: italic;
+	margin-top: var(--space-2xs)
 }
 
 code {

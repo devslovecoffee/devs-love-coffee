@@ -1,0 +1,139 @@
+---
+title: Spring Animation with GLSL Shader
+image: /images/glsl-og.png
+description: "Creating a complex reveal animation using a spring-animated GLSL shader, combined with lottie animation."
+excerpt: "Creating a complex reveal animation using a spring-animated GLSL shader, combined with lottie animation."
+pubDate: 'Oct 11 2024'
+---
+import { Image } from 'astro:assets';
+import ShaderRenderer from "../../components/ShaderRenderer.astro";
+
+
+My favorite (and probably the most complex) part of our new <a class="external" href="https://callstack.ai" target="_blank">callstack.ai</a> website is the `DeepCode Engine` card. It starts out as a blank, black section, and smoothly reveals its contents when scrolled into view, using multiple synchronised animations:
+
+- Lottie animation with the "bubbles" plays.
+- A GLSL shader with the light rings plays.
+- The text becomes visible.
+
+You can see it in action in the video below.
+<Image src="/blog/spring-animation-with-glsl-shader/reveal-vid.gif" width="640" alt="The Current Lights Setup" />
+
+## CSS Gradient vs Shader
+
+We have started out with an animation rendered with Cinema 4D and exported in the Lottie format (more on that later). Our initial idea was to animate a gradient background using css (<a class="external" href="https://dev.to/afif/we-can-finally-animate-css-gradient-kdk" target="_blank">since you can totally do that</a>) while the animation plays, but it just didn't feel right.
+
+<figure>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 8px;">
+    <iframe loading="lazy" title="Static stacked css gradients" src="/assets/shader/gradient-static.html" width="100%" style="aspect-ratio: 1; border:none; border-radius: 12px; margin: 0;"></iframe>
+    <iframe loading="lazy" title="Animated stacked css gradients" src="/assets/shader/gradient-dynamic.html" height="auto" width="100%" style="aspect-ratio: 1; border:none; border-radius: 12px; margin: 0;"></iframe>
+    </div>
+    <figcaption align="center">The initial css gradient.</figcaption>
+</figure>
+
+Css gradients are linear, and stacking them doesn't always work that well - we needed more complexity to achieve the same effect we use elsewhere on our website. We have decided that css gradients are not enough for our use-case, and we needed to use a shader instead.
+
+## GLSL Shader
+
+The overall theme of the website is Physical phenomena, mainly light interactions with different mediums, such as <a class="external" href="https://en.wikipedia.org/wiki/Dispersion_(optics)" target="_blank">dispersion</a>. We wanted the reveal animation to reflect that theme, so we have started with a simple light rings with simulated "dispersion".
+
+The dispersion effect is achieved by drawing 3 concentric rings with slightly different radii. We then take one channel from each one and combine them into the final color, achieving the effect of light splitting into its components. It was love at first sight.
+
+<figure>
+    <ShaderRenderer id="static-smooth" path="/assets/shader/smooth.glsl" />
+    <figcaption align="center">Initial version of the shader interpolating between using a simple step function and using a smoothstep function, producing a glowing effect.</figcaption>
+</figure>
+
+### Animated Shader
+
+What we needed next was the animation. One way to do it would be to just draw the circles in the final state and scale up (and fade in-out) the whole canvas with a css transition. This could work, but the transition would be linear.
+
+We again needed something a little bit more complex. Lucky for us, it is pretty easy to animate the shader itself. All you have to do is use some value (like time) to calculate the radius of the rings. We have used the absolute value of `sin` function with the `time` uniform for our initial prototype.
+
+<figure>
+    <ShaderRenderer id="smooth" path="/assets/shader/animated.glsl" />
+    <figcaption align="center">The animated version of the light rings using the sine of the time uniform.</figcaption>
+</figure>
+
+Now we have the light rings forever looping between radius 0 and 1. We could not use this for the reveal effect, since the animation is still linear, and we could not guarantee that the animation would be in the correct state when the card is revealed.
+
+Additionally, we would have to use some magic constant to start the animation, and stop it at the correct time - once the circles reach the final size.
+
+### Passing a Uniform to the Shader
+
+To solve this problem we are passing a <a class="external" href="https://www.khronos.org/opengl/wiki/Uniform_(GLSL)" target="_blank">uniform</a> to the shader, which controls the animation. The value we pass is calculated using a <a class="external" href="https://popmotion.io/#quick-start-animation-animate-spring-options" target="_blank">spring animation from the popmotion library</a>.
+
+Once the canvas is loaded, the animation is started, and on every "tick" the shader is updated with the calculated value. The simplified code look something like this:
+
+```javascript
+const animateShader = () => {
+  import { animate } from "popmotion";
+
+  if (!canvas) {
+    setupShader();
+  }
+
+  animate({
+    from: 10,
+    to: 50,
+    stiffness: 40,
+    damping: 50,
+    mass: 20,
+    onUpdate: (latest) => {
+      canvas.setUniform("u_progress", latest / 100);
+    }
+  });
+};
+```
+
+The result looks like this:
+
+<figure>
+    <iframe loading="lazy" title="Static stacked css gradients" src="/assets/shader/shader-animated.html" width="100%" style="aspect-ratio: 1; border:none; border-radius: 12px; margin: 0;"></iframe>
+    <figcaption align="center">The final animated version of the light rings using the spring animation.</figcaption>
+</figure>
+
+
+## Adding the Lottie Animation
+
+The final piece of the puzzle is the Lottie animation. We have used Cinema 4D to create the animation, and exported it as Lottie animation. We are using the <a class="external" href="https://github.com/airbnb/lottie-web" target="_blank">Lottie Web</a> library to play the animation.
+
+<figure>
+    <iframe loading="lazy" title="Static stacked css gradients" src="/assets/shader/shader-lottie.html" width="100%" style="aspect-ratio: 1; border:none; border-radius: 12px; margin: 0;"></iframe>
+    <figcaption align="center">The result with lottie animation combined with a glsl shader.</figcaption>
+</figure>
+
+The simplified version of the whole code looks like this:
+
+```javascript
+let anim;
+
+const setupLottie = async () => {
+        anim = lottie.loadAnimation({
+            container: document.getElementById('lottie-animation'),
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
+            path: "/path/to/animation.json",
+        });
+
+        anim.addEventListener("data_ready", playLottie);
+    }
+
+const playLottie = () => {
+    if (anim) {
+        anim.goToAndStop(0, true);
+        anim.play();
+        animateShader(); //reference to the shader animation
+    }
+}
+
+setupLottie();
+```
+
+### Orchestrating it All Together
+
+We have a custom logic implemented that can fire an event once an element is fully visible. We use this event to start the lottie animation. The lottie animation, however, is not guaranteed to be loaded by this time, so we tie the whole reveal to the lottie animation's `start` event. Once the lottie is loaded and starts playing, we start the shader animation and the text reveal.
+
+## Conclusion
+
+You can check the final result on our <a class="external" href="https://callstack.ai" target="_blank">callstack.ai</a> website. The reveal animation is a great example of how you can use multiple technologies and techniques to achieve a complex effect.

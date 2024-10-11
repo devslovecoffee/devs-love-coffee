@@ -1,0 +1,78 @@
+<style>
+body {
+    background: #000807;
+    margin: 0;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.replay {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    background: none;
+    color: rgba(255, 255, 255, 0.8);
+    outline: none;
+    border: none;
+    padding: 8px;
+}
+
+.replay:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.spring-canvas {
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+}
+
+</style>
+<body>
+    <button class="replay" id="replay-spring"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+    <canvas
+        id="spring-canvas"
+        width="1000"
+        height="1000"
+        class="glslCanvas spring-canvas"
+        data-fragment-url="/assets/shader/spring.glsl"
+></canvas>
+</body>
+
+<script type="importmap">
+    {
+      "imports": {
+        "popmotion": "https://unpkg.com/popmotion@11.0.3/dist/popmotion.min.js"
+      }
+    }
+</script>
+
+<script type="text/javascript" src="https://unpkg.com/glsl-canvas-js/dist/umd/glsl-canvas.min.js"></script>
+
+<script type="module">
+    import "popmotion";
+    const canvas = document.getElementById('spring-canvas');
+    const glCanvas = new glsl.Canvas(canvas);
+    const resetButton = document.getElementById("replay-spring");
+    const fromStart = () => {
+        glCanvas.setUniform("u_progress", 0);
+
+        popmotion.animate({
+            from: 10,
+            to: 40,
+            stiffness: 40,
+            damping: 50,
+            mass: 20,
+            onUpdate: (latest) => {
+                glCanvas.setUniform("u_progress", latest / 100);
+            },
+        });
+    }
+
+    resetButton.addEventListener("click", fromStart);
+
+    fromStart();
+
+</script>

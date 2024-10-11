@@ -1,6 +1,6 @@
 ---
 title: The Resend Cube Lookalike Part 3 - Lights, God Rays, Final Touches
-image: /images/img-card-3.png
+image: /images/resend-part-3-og.png
 description: A Part 3 of the Step-by-Step Replication of the Resend Cube Using Three.js and a Single HTML File. In this post we enhance the lights, add the god rays and tie it all up.
 excerpt: Part 3 of making the resend cube from scratch using Three.js - Enhancing the Lights, add the God Rays and finishing up.
 pubDate: 'Jul 12 2023'
@@ -18,11 +18,11 @@ This is the final part of the Resend cube lookalike series where we are trying t
 
 The current lights setup is shown below:
 
-<Image src="/images/old-lights.png" width="640" alt="The Current Lights Setup" />
+<Image src="/blog/resend-cube-lookalike-part-3/old-lights.png" width="640" alt="The Current Lights Setup" />
 
 The effect it creates is not ideal - we never have a whole side of the cube highlighted, but always only a circle within the side - demonstrated by the video below. To make the lightning look better, we can use different kind of lights - `RectAreaLight`.
 
-<Image src="/images/point-lights.gif" width="720" alt="Visualization of the Point Lights" />
+<Image src="/blog/resend-cube-lookalike-part-3/point-lights.gif" width="720" alt="Visualization of the Point Lights" />
 
 RectAreaLights are literally just panes which emit light. If we make them big enough, we can make the whole side of the cube highlighted. To make the RectAreaLights work though, we have to change the controls of our cube - instead of orbit controls, we need to rotate the whole cube. We will see why in a while.
 
@@ -56,7 +56,7 @@ Borrowing some code from this <a class="external" href="https://jsfiddle.net/Mad
 
 The problem is that there are rotations already going on with the cube. Lucky for us, we can use the same solution we did in part 2 - we just wrap the cube in another object which we apply the rotations to - shown below.
 
-<Image src="/images/new-controls.png" width="828" alt="The New Rotation Setup" />
+<Image src="/blog/resend-cube-lookalike-part-3/new-controls.png" width="828" alt="The New Rotation Setup" />
 
 To begin, we replace the old wrapper code inside makeCubes function with the following:
 
@@ -192,7 +192,7 @@ scene.add( new RectAreaLightHelper( rectLight2 ) );
 ```
 And here is what it looks like from distance:
 
-<Image src="/images/new-light-setup.png" width="828" alt="The New Lights Setup" />
+<Image src="/blog/resend-cube-lookalike-part-3/new-light-setup.png" width="828" alt="The New Lights Setup" />
 
 Pretty sick. I encourage you to play with the light and find out what you like. Pro-tip: when positioning the lights, pause the animation by commenting out the following lines:
 
@@ -209,7 +209,7 @@ and setting camera.position.z to a high number (like 60), so you get an overview
 
 Now let's look at a pretty neat trick I think (might be a complete conspiration by me) the Resend guys did - using the god rays to fix a flaw of the cube where it sometimes almost entirely blends into the background. The image below demonstrates the issue.
 
-<Image src="/images/non-visible-cube.png" width="828" alt="The Almost Non-visible Cube" />
+<Image src="/blog/resend-cube-lookalike-part-3/non-visible-cube.png" width="828" alt="The Almost Non-visible Cube" />
 
 To fix this (or at least I think that's what happened), they introduced an element serving both as a "light source", but more importantly serving as a background for the cube in the case it gets too dark. Giving it a lighter background keeps the outline visible and you won't get "lost" (suddenly realise you don't know what you are looking at).
 
@@ -401,7 +401,7 @@ update();
 
 If you've done everything correctly, the light ray should be visible now. The screenshot below shows what it looks like (note: this is a happy case set up to look good).
 
-<Image src="/images/god-rays.png" width="720" alt="The god Rays" />
+<Image src="/blog/resend-cube-lookalike-part-3/god-rays.png" width="720" alt="The god Rays" />
 
 Based on your screen resolution though, the rays might not look the best - they might not be aligned, or might not reach the dark parts of the cube. Let's fix that.
 

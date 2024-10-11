@@ -20,6 +20,7 @@ const displayPosts = num ? posts.slice(0, num) : posts;
         ))
     }
 </ul>
+{num && <a class="view-all internal" href="/blog">View All</a>}
 
 <style lang="scss">
   ul {
@@ -63,6 +64,16 @@ const displayPosts = num ? posts.slice(0, num) : posts;
           }
         }
       }
+    }
+  }
+  .view-all {
+    display: block;
+    padding: 0 var(--space-s);
+    margin-top: var(--space-xs);
+    color: var(--color-highlight-74);
+
+    &:hover {
+        color: var(--color-highlight)
     }
   }
 </style>

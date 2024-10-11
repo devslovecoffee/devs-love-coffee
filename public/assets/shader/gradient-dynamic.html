@@ -1,0 +1,148 @@
+<style>
+body {
+    background: #000807;
+    margin: 0;
+    position: relative;
+}
+
+.replay-gradient {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    background: none;
+    color: rgba(255, 255, 255, 0.8);
+    outline: none;
+    border: none;
+    padding: 8px;
+}
+
+.replay-gradient:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.container {
+    width: 100%;
+    aspect-ratio: 1;
+
+    --transitionF: cubic-bezier(0.09, 0.62, 0.47, 1.08);
+    --transitionT: 0.6s;
+    transition:
+    --bg-p1 var(--transitionT) var(--transitionF),
+    --bg-p2 var(--transitionT) var(--transitionF),
+    --bg-p3 var(--transitionT) var(--transitionF),
+    --bg-p4 var(--transitionT) var(--transitionF),
+    --bg-p5 var(--transitionT) var(--transitionF),
+    --bg-p6 var(--transitionT) var(--transitionF),
+    --bg-p7 var(--transitionT) var(--transitionF),
+    --bg-p8 var(--transitionT) var(--transitionF),
+    --bg-p9 var(--transitionT) var(--transitionF),
+    --bg-p10 var(--transitionT) var(--transitionF),
+    --bg-c1 var(--transitionT) var(--transitionF),
+    --bg-c2 var(--transitionT) var(--transitionF),
+    --bg-c3 var(--transitionT) var(--transitionF),
+    --bg-c4 var(--transitionT) var(--transitionF),
+    --bg-c5 var(--transitionT) var(--transitionF),
+    --bg-c6 var(--transitionT) var(--transitionF),
+    --bg-c7 var(--transitionT) var(--transitionF),
+    --bg-c8 var(--transitionT) var(--transitionF),
+    --bg-c9 var(--transitionT) var(--transitionF),
+    --bg-c10 var(--transitionT) var(--transitionF);
+
+    background: radial-gradient(
+            circle at center,
+            var(--bg-c1) var(--bg-p1),
+            var(--bg-c2) var(--bg-p2),
+            var(--bg-c3) var(--bg-p3),
+            var(--bg-c4) var(--bg-p4),
+            var(--bg-c5) var(--bg-p5),
+            var(--bg-c6) var(--bg-p6),
+            var(--bg-c7) var(--bg-p7),
+            var(--bg-c8) var(--bg-p8),
+            var(--bg-c9) var(--bg-p9),
+            var(--bg-c10) var(--bg-p10)
+    )
+    50% 0% / 100% 100% no-repeat;
+}
+</style>
+<body>
+<button class="replay-gradient" id="replay-gradient"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+<div class="container" id="container">
+</div>
+</body>
+<script>
+  const bgFrom = [
+    { p: "0%", c: "#112543" },
+    { p: "0%", c: "#112543" },
+    { p: "0%", c: "#6a7d96" },
+    { p: "0%", c: "#a1afb7" },
+    { p: "0%", c: "#505977" },
+    { p: "0%", c: "#192b46" },
+    { p: "0%", c: "#000" },
+    { p: "0%", c: "#0a1e31" },
+    { p: "0%", c: "#253341" },
+    { p: "0%", c: "#0d1a27" },
+  ];
+
+  const bgTo = [
+    { p: "7%", c: "#112543" },
+    { p: "7.01%", c: "#112543" },
+    { p: "11.74%", c: "#6a7d96" },
+    { p: "13.68%", c: "#a1afb7" },
+    { p: "15.63%", c: "#505977" },
+    { p: "18.92%", c: "#192b46" },
+    { p: "22%", c: "#000" },
+    { p: "33%", c: "#0a1e31" },
+    { p: "43.5%", c: "#253341" },
+    { p: "67%", c: "#0d1a27" },
+  ];
+
+  for (let i = 0; i < bgFrom.length; i++) {
+    CSS.registerProperty({
+      name: `--bg-p${i + 1}`,
+      syntax: "<percentage>",
+      inherits: false,
+      initialValue: bgFrom[i].p,
+    });
+    CSS.registerProperty({
+      name: `--bg-c${i + 1}`,
+      syntax: "<color>",
+      inherits: false,
+      initialValue: bgFrom[i].c,
+    });
+  }
+
+  const toInitial = () => {
+    const el = document.getElementById("container");
+    for (let i = 0; i < bgFrom.length; i++) {
+      el.style.setProperty(`--bg-p${i + 1}`, bgFrom[i].p);
+      el.style.setProperty(`--bg-c${i + 1}`, bgFrom[i].c);
+    }
+  }
+
+  const toFinal = () => {
+    const el = document.getElementById("container");
+    for (let i = 0; i < bgTo.length; i++) {
+      el.style.setProperty(`--bg-p${i + 1}`, bgTo[i].p);
+      el.style.setProperty(`--bg-c${i + 1}`, bgTo[i].c);
+    }
+  }
+
+  const resetButton = document.getElementById("replay-gradient");
+    resetButton.addEventListener("click", () => {
+        toInitial();
+        setTimeout(() => {
+        toFinal();
+        }, 1200);
+    });
+
+  const animateBackground = () => {
+    setTimeout(() => {
+        toFinal();
+    }, 1200);
+  };
+
+  animateBackground();
+
+
+</script>
