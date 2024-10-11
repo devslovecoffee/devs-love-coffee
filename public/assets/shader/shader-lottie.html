@@ -1,0 +1,122 @@
+<style>
+body {
+    background: #000807;
+    margin: 0;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.replay {
+    position: fixed;
+    z-index: 2;
+    top: 8px;
+    right: 8px;
+    background: none;
+    color: rgba(255, 255, 255, 0.8);
+    outline: none;
+    border: none;
+    padding: 8px;
+}
+
+.replay:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.lottie-canvas {
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+}
+
+.lottie-anim {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+</style>
+<body>
+<button class="replay" id="replay-lottie"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+<div id="lottie-animation" class="lottie-anim"></div>
+<canvas
+    id="lottie-canvas"
+    width="1000"
+    height="1000"
+    class="glslCanvas lottie-canvas"
+    data-fragment-url="/assets/shader/spring.glsl"
+></canvas>
+</body>
+
+<script type="importmap">
+    {
+      "imports": {
+        "popmotion": "https://unpkg.com/popmotion@11.0.3/dist/popmotion.min.js"
+      }
+    }
+</script>
+
+<script type="text/javascript" src="https://unpkg.com/glsl-canvas-js/dist/umd/glsl-canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="module">
+    import "popmotion";
+    const canvas = document.getElementById('lottie-canvas');
+    const glCanvas = new glsl.Canvas(canvas);
+    const resetButton = document.getElementById("replay-lottie");
+    const easing = popmotion.cubicBezier(0.4, -0.5, 0.2, 1);
+    let anim;
+    const fromStart = () => {
+        glCanvas.setUniform("u_progress", 0);
+
+        popmotion.animate({
+            from: 10,
+            to: 50,
+            stiffness: 40,
+            damping: 50,
+            mass: 20,
+            onUpdate: (latest) => {
+                glCanvas.setUniform("u_progress", latest / 100);
+
+                const progress = latest / 50;
+                const alpha = Math.max(1 - progress, 0);
+                canvas.style.setProperty("opacity", easing(alpha));
+            },
+        });
+    }
+
+    const playLottie = () => {
+        if (anim) {
+            anim.goToAndStop(0, true);
+            fromStart();
+            window.setTimeout(() => {
+                anim.play();
+            }, 250);
+        }
+    }
+
+    const setupLottie = async () => {
+        anim = lottie.loadAnimation({
+            container: document.getElementById('lottie-animation'),
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
+            path: "/images/bubbles-animation.json",
+        });
+
+        anim.addEventListener("data_ready", playLottie);
+    }
+
+    resetButton.addEventListener("click", playLottie);
+    setupLottie();
+
+</script>

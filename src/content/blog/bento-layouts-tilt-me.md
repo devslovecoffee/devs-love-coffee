@@ -82,7 +82,6 @@ All I needed to do was scale it by adding multiple tiles, inside a grid layout. 
         <div class="box"></div>
         <div class="box"></div>
     </div>
-</div>
 </body>
 <script>
     // Try smaller numbers to see more tilt
