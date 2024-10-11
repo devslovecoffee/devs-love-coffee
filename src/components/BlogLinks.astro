@@ -20,7 +20,7 @@ const displayPosts = num ? posts.slice(0, num) : posts;
         ))
     }
 </ul>
-<a class="view-all internal" href="/blog">View All</a>
+{num && <a class="view-all internal" href="/blog">View All</a>}
 
 <style lang="scss">
   ul {
