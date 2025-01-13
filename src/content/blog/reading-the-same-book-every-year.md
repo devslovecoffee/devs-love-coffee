@@ -1,6 +1,6 @@
 ---
 title: Reading the Same Book Every Year
-image: /images/resend-part-1-og.png
+image: /images/catcher-og.png
 description: A reflection on reading the same book every year and how it helps me reflect on the past year.
 excerpt: A reflection on reading the same book every year and how it helps me reflect on the past year.
 pubDate: 'Jan 13 2025'
