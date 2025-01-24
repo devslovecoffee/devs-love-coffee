@@ -12,7 +12,7 @@ import { Image } from 'astro:assets';
     <figcaption align = "center">The final result. Interactive on desktop (code at the end of the post).</figcaption>
 </figure>
 
-This is the final part of the Resend cube lookalike series where we are trying to recreate the Resend cube. This time we fix the lights and add the "god rays" which are a pretty neat trick as we find out. You can get caught up with part 1, <a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js">where we have built the cube itself</a>, and part 2, <a class="internal" href="/blog/resend-cube-lookalike-part-2">where we have added animations and some cool effects</a>.
+This is the final installment of our Resend Cube Lookalike series, where we focus on perfecting the recreation of the Resend Cube. This time we fix the lights and introduce "god rays," an impressive lighting technique to enhance the cube's visual appeal. You can get caught up with part 1, <a class="internal" href="/blog/making-the-resend-cube-from-scratch-using-three-js">where we have built the cube itself</a>, and part 2, <a class="internal" href="/blog/resend-cube-lookalike-part-2">where we have added animations and some cool effects</a>.
 
 ## Lights
 
@@ -20,11 +20,11 @@ The current lights setup is shown below:
 
 <Image src="/blog/resend-cube-lookalike-part-3/old-lights.png" width="640" alt="The Current Lights Setup" />
 
-The effect it creates is not ideal - we never have a whole side of the cube highlighted, but always only a circle within the side - demonstrated by the video below. To make the lightning look better, we can use different kind of lights - `RectAreaLight`.
+The effect it creates is not ideal - we never have a whole side of the cube highlighted, but always only a circle within the side - demonstrated evident in the video below. To make the lightning look better, we can use different kind of lights - `RectAreaLight`.
 
 <Image src="/blog/resend-cube-lookalike-part-3/point-lights.gif" width="720" alt="Visualization of the Point Lights" />
 
-RectAreaLights are literally just panes which emit light. If we make them big enough, we can make the whole side of the cube highlighted. To make the RectAreaLights work though, we have to change the controls of our cube - instead of orbit controls, we need to rotate the whole cube. We will see why in a while.
+RectAreaLights are literally just panes which emit light. If we make them big enough, we can make the whole side of the cube highlighted. To make the RectAreaLights work though, we have to change the controls of our cube - instead of orbit controls, we need to rotate the whole cube. This change enhances the lighting effect on the cube.
 
 Starting with some imports, we add the following lines to our importmap (if you don't have an importmap to add to, you might want to check the <a class="internal" href="/blog/resend-cube-lookalike-part-2">part 2</a> of this series):
 
@@ -48,11 +48,11 @@ scene.add( rectLight1 );
 scene.add( new RectAreaLightHelper( rectLight1 ) );
 ```
 
-Rotating the cube, you can see it looks much better. You can also see a huge pane of light, which is not desired and needs getting rid of. Here comes the rotating the cube instead of using orbit controls part.
+Rotating the cube, you can see it looks much better. You can also see a huge pane of light, which is unwanted, requiring removal. This is where rotating the cube, rather than using orbit controls, becomes beneficial.
 
 ### Rotation
 
-Borrowing some code from this <a class="external" href="https://jsfiddle.net/MadLittleMods/n6u6asza/" target="_blank">jsfiddle</a>, we can rotate the cube on drag instead of rotating the camera, which stays fixed - allowing us to place the lights outside of the camera view, but still casting light on the cube.
+Using code inspired by this <a class="external" href="https://jsfiddle.net/MadLittleMods/n6u6asza/" target="_blank">jsfiddle</a>, we can rotate the cube on drag instead of rotating the camera, which stays fixed - allowing us to place the lights outside of the camera view, but still casting light on the cube.
 
 The problem is that there are rotations already going on with the cube. Lucky for us, we can use the same solution we did in part 2 - we just wrap the cube in another object which we apply the rotations to - shown below.
 
@@ -85,7 +85,7 @@ tRotate(cube.children[0].children[0], 2000);
 
 Now you should see the cube working exactly as before - the whole cube should be rotating and the sided should be rotating as well.
 
-Our next step is to remove all logic regarding the orbit controls and replace it with the "drag controls". Below are the lines we are removing (you can search for them in the code):
+Our next step is to remove all logic regarding the orbit controls and replace it with the "drag controls". Here are the lines to remove in the code:
 
 ```javascript
 "OrbitControls":"https://cdn.jsdelivr.net/npm/three@0.142.0/examples/jsm/controls/OrbitControls.js",
@@ -101,7 +101,7 @@ controls.enablePan = false;
 controls.update();
 ```
 
-If done correctly, you have lost the ability to rotate the cube and the page still runs fine inside your browser. Now let's steal some code from the jsfiddle. We will add a "Controls" section right before animating the cube and a call of the update function right after calling animate():
+If done correctly, the cube's rotation ability will be temporarily disabled and the page still runs fine inside your browser. Now let's steal some code from the jsfiddle. We will add a "Controls" section right before animating the cube and a call of the update function right after calling animate():
 
 ```javascript
 // Controls
@@ -168,7 +168,7 @@ animate();
 update();
 ```
 
-You should be able to rotate the cube again. Awesome. Now for the fancy lights: what you should see right now is a somewhat faded cube - we have lost the direct light on either side. We need to bring that back by adding more rect lights.
+You should be able to rotate the cube again. Awesome. Now for the fancy lights: you'll notice the cube appears faded, losing direct lighting on its sides. We need to bring that back by adding more rect lights.
 
 ### Adding More Rect Lights
 
@@ -194,7 +194,7 @@ And here is what it looks like from distance:
 
 <Image src="/blog/resend-cube-lookalike-part-3/new-light-setup.png" width="828" alt="The New Lights Setup" />
 
-Pretty sick. I encourage you to play with the light and find out what you like. Pro-tip: when positioning the lights, pause the animation by commenting out the following lines:
+Pretty sick. I encourage you to play with the light and find out what you like. Tip: To adjust light positioning, pause the animation by commenting out these lines:
 
 ```javascript
 cube.children[0].rotation.x += 0.005;
@@ -207,11 +207,11 @@ and setting camera.position.z to a high number (like 60), so you get an overview
 
 ## God Rays
 
-Now let's look at a pretty neat trick I think (might be a complete conspiration by me) the Resend guys did - using the god rays to fix a flaw of the cube where it sometimes almost entirely blends into the background. The image below demonstrates the issue.
+Now, let's explore an effective technique I believe the Resend team used (might be a complete conspiration by me) the Resend guys did - using the god rays to fix a flaw of the cube where it sometimes almost entirely blends into the background. The image below demonstrates the issue.
 
 <Image src="/blog/resend-cube-lookalike-part-3/non-visible-cube.png" width="828" alt="The Almost Non-visible Cube" />
 
-To fix this (or at least I think that's what happened), they introduced an element serving both as a "light source", but more importantly serving as a background for the cube in the case it gets too dark. Giving it a lighter background keeps the outline visible and you won't get "lost" (suddenly realise you don't know what you are looking at).
+To fix this (or at least I think that's what happened), they introduced an element serving both as a "light source", but more importantly serving as a background for the cube in the case it gets too dark. A lighter background ensures the cube's outline remains visible, preventing you from losing it (suddenly realise you don't know what you are looking at).
 
 So how do we add it? This time we don't use the fancy Three.js, but turn to our old friends HTML and CSS.
 
@@ -277,9 +277,9 @@ And you are good to go... except that nothing changed. That is because I lied, a
 
 ### Removing Scene Background
 
-This might seem like and easy task - remove the scene background and we are done. At least that's what I thought. The reality is not so bright as we will soon find out.
+This might seem like and easy task - remove the scene background and we are done. At least that's what I thought. However, it's not as straightforward as it seems.
 
-We can really start with removing the scene background, which is this line: `scene.background = new THREE.Color( 0x000000 );`. We should then set the rendering to support opacity by adding alpha to renderer options:
+Let's start by removing the scene background with this line: `scene.background = new THREE.Color( 0x000000 );`. We should then set the rendering to support opacity by adding alpha to renderer options:
 
 ```javascript
 const renderer = new THREE.WebGLRenderer({

@@ -56,7 +56,7 @@ We now have an extensible imports solution, allowing us to use all the goodness 
 
 ## Bloom
 
-With the imports out of the way, we can start with the relatively straightforward thing to implement - Bloom. To add the bloom effect, we need to add some things:
+With imports optimized, we can start with the relatively straightforward thing to implement - Bloom. To add the bloom effect, we need to add some things:
 - the first one is `EffectComposer`, which lets you add different post-processing effects
 - the second thing we add is a `RenderPass`, which allows you to chain the actual events
 - the last thing we add is the `UnrealBloomPass` - the actual filter responsible for the bloom
@@ -121,7 +121,7 @@ composer.addPass(renderPass);
 composer.addPass(bloomPass);
 ```
 
-As the final step, we replace the `renderer.render(scene, camera);` call in the animate function with `composer.render();` and we are done. Now our cube looks a bit more sexy thanks to the bloom effect.
+As the final step, we replace the `renderer.render(scene, camera);` call in the animate function with `composer.render();` and we are done. Now, our cube has an enhanced appearance due to the bloom effect.
 
 The parameters for the bloom effect are adjustable and I have not explored too many options - I've just used whatever looked ok. Feel free to experiment with them and search for a better look.
 
@@ -133,7 +133,7 @@ Now we want to add the animation - rotating the sides of the cube. The Resend cu
 
 Rotating then is a simple act of rotating layers 1 and 3, 180 degrees (or PI). Sounds easy enough.
 
-Firstly, we need to augment the function used to create the cube.
+First, let's enhance the cube creation function.
 
 ```javascript
 function makeCubes() {
@@ -165,7 +165,7 @@ return cubes;
 
 We now create the cube as an object which holds the layers, that hold the actual cubes - exactly as is shown in the picture above. We have also enhanced the cube creation a little bit - the numCubes now works properly and spawns the correct amount of cubes per side, we always center the cube using the offset, and we have added a little bit of spacing between the cubes.
 
-That's all for the structure side of the animation. To rotate the layers, I have found a neat little <a class="external" href="https://stackoverflow.com/questions/31753860/using-three-js-and-tween-js-to-rotate-object-in-90-degree-increments-to-create-a" target="_blank">function</a>. It uses the TWEEN library to interpolate between 2 states over some time. It is set up to endlessly repeat itself rotating the layers.
+That's all for the structure side of the animation. To rotate the layers, I've utilized a useful <a class="external" href="https://stackoverflow.com/questions/31753860/using-three-js-and-tween-js-to-rotate-object-in-90-degree-increments-to-create-a" target="_blank">function</a>. It uses the TWEEN library to interpolate between 2 states over some time. It is set up to endlessly repeat itself rotating the layers.
 
 The setup process for tween is similar to the others:
 
@@ -209,7 +209,7 @@ To make the feeling better we can do a little trick - rotate the whole cube 90 d
 
 The current setup of the cube would not allow for this because of a simple reason - we already rotate the cube in our animate function. Were we to rotate the whole cube before rotating one of its sides, it would change direction completely, messing up the whole feeling.
 
-What we need to do is add a wrapper to the cube, rotate the wrapper continuously, and, when the time comes, rotate the wrapped element.
+Add a wrapper to the cube, rotate the wrapper continuously, and, when the time comes, rotate the wrapped element.
 
 
 <Image src="/blog/resend-cube-lookalike-part-2/img-rotate.png" width="720" alt="Rotating the Cube" />
@@ -222,7 +222,7 @@ wrapper.add(cubes);
 return wrapper;
 ```
 
-We basically take the cubes object and just wrap it in another object. What is does is allow us to transform (including rotate) each object separately.
+We wrap the cubes object within another object. What is does is allow us to transform (including rotate) each object separately.
 
 The only thing left is to augment the `tRotate` function to rotate the inner cube before rotating the side, and the call of the function, to pass the correct elements needed to rotate:
 

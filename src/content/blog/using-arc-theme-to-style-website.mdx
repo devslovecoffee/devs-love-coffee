@@ -7,9 +7,9 @@ pubDate: 'Apr 10 2024'
 ---
 import { Image } from 'astro:assets';
 
-Arc is the first browser I was ever excited about. Up until then, the browsers I've used (basically all of them) felt dull, empty, soulless, and seemingly hating their task of showing you the content. The websites shown were in contrast engaging and stimulating. Arc to me feels complementary to the websites and enhances the whole browsing experience. Apart from its captivating looks, it's easy to use, has **great** performance, and I can customize it in various ways.
+Arc is the first browser that truly excites me. Up until then, the browsers I've used (basically all of them) felt uninspiring and struggled to engage users.  The websites shown were in contrast vibrant and engaging. Arc complements websites and enhances the whole browsing experience. Apart from its captivating looks, it's easy to use, has **great** performance, and I can customize it in various ways.
 
-One of the customization options that Arc provides is changing the theme, which as I've recently learned, does not only change the colors of the browser itself, but also inserts the color configuration as css variables to the root of any page you are browsing. The inserted variables for a specific theme look like this:
+One of the customization options that Arc provides is changing the theme, which as I recently discovered, does not only change the colors of the browser itself, but also inserts the color configuration as css variables to the root of any page you are browsing. The inserted variables for a specific theme look like this:
 
 ```css
 :root {
@@ -29,10 +29,10 @@ One of the customization options that Arc provides is changing the theme, which 
 }
 ```
 
-I have noticed this just as I was adding themes to my blog so, naturally, I wanted to see whether I could use them as a separate theme option for my readers that use Arc. Not only I could, but turns out it is also super easy.
+I have noticed this just as I was adding themes to my blog so, naturally, I wanted to see whether I could use them as a separate theme option for my readers that use Arc. Not only I could, but turns out it's also remarkably simple.
 
 ## Themes In Css
-To implement different themes in css, all you have to do is decide on some colors you want to use for your elements, define the colors as variables, and then plug in the desired values to the relevant places. The most basic use case for themes is the light and dark theme.
+To implement different themes in css, all you have to do is decide on some colors you want to use for your elements, define the colors as variables, and then plug in the desired values to the relevant places. The simplest use case for themes includes light and dark modes.
 
 Here is my base, light theme configuration:
 ```css
@@ -56,7 +56,7 @@ body {
 }
 ```
 
-Pretty basic css theming stuff. To use the Arc-provided variables, I just needed to find out which colors worked for my components, and swap the hex color codes for the variables inside css. Here is the arc config I use:
+This is fundamental CSS theming. To use the Arc-provided variables, I identified which colors suited my components, and swap the hex color codes for the variables inside css. Here is the arc config I use:
 ```css
 html[data-theme='arc'] {
    --color-background: var(--arc-palette-background);
@@ -70,7 +70,7 @@ html[data-theme='arc'] {
 }
 ```
 
-Arc updates the variables as soon as the theme is updated, and the css is recalculated real-time, as demonstrated by following gif:
+Arc updates the variables instantly when the theme changes, recalculating CSS in real-time, as shown in the following gif:
 
 <figure>
     <Image src="/blog/using-arc-theme-to-style-website/arc-colors.gif" width="640" alt="Changing the Arc Theme Changes All the Colors on the Website" />

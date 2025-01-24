@@ -1,8 +1,8 @@
 ---
-title: Making the Resend cube from scratch using Three.js
+title: How to Create a 3D Resend Cube using Three.js from Scratch
 image: /images/resend-part-1-og.png
-description: Step-by-Step Replication of the Resend Cube Using Three.js and a Single HTML File. Starting with a boilerplate and adding the cube, making it the correct shape, materials and lightning.
-excerpt: An exploration and tutorial on how to make the resend cube from scratch using Three.js.
+description: Learn How to Replicate the Resend 3D Cube with Three.js and HTML. Starting with a boilerplate and adding the cube, forming its correct shape, using proper materials, and suitable lighting.
+excerpt: A comprehensive guide on creating the Resend cube from scratch with Three.js.
 pubDate: 'Jun 15 2023'
 ---
 <figure>
@@ -10,9 +10,9 @@ pubDate: 'Jun 15 2023'
     <figcaption align = "center">The final result. Interactive. (code at the end of the post)</figcaption>
 </figure>
 
-4 months ago - on 30th January, I have seen the <a class="external" href="https://resend.com" target="_blank">resend.com</a> webpage with the amazing looking 3D cube. My brain immediately kicked into gear trying to figure out how they did it.
+Four months ago, on January 30th, I saw the <a class="external" href="https://resend.com" target="_blank">resend.com</a> webpage with the amazing looking 3D cube. My brain immediately kicked into gear trying to figure out how they did it.
 
-4 months later, their recent launch reminded me of this desire of mine to steal it (Steal like an artist reference, yay!). As I have some experience with Three.js, I went right in.
+4 months later, their recent launch rekindled my desire to steal it (Inspired by the concept of 'Steal Like an Artist'!). As I have some experience with Three.js, I went right in.
 
 ## Start With a Boilerplate
 
@@ -107,17 +107,17 @@ const geometry = createBoxWithRoundedEdges( 1, 1, 1, .06, 20 ); //the smoother t
 
 ## Material + Lights
 
-Now we want the cube to feel like the resend one - meaning we need to make it metal and a different light. Metal is easy - we already use standard material, so we just add some metalness and tone down roughness (while we are at it, we change the color to dark grey).
+Our goal is to make the cube resemble the one on Resend - meaning we need to make it metal and a different light. Metal is easy - we already use standard material, so we just add some metalness and tone down roughness (while we are at it, we change the color to dark grey).
 
 ```javascript
 const material = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, metalness: 1, roughness: 0.11 });
 ```
 
-Now the cube is faded a lot - it almost blends into the background, and you occasionally see some flashes. We need to replace the light with a point light and tune it to always light some part of the cube up.
+The cube now appears less distinct, almost blending into the background, and you occasionally see some flashes. We need to replace the light with a point light and tune it to always light some part of the cube up.
 
-Compared to directional light, which gets emitted in a specific direction (but is quite weak and falling on a side of the cube creates a "flashlight" effect - you see small surface being affected), point light emits light in all directions, which creates a nice effect we can use - the light reflected in the cube will be larger, and always hitting surfaces - edges for even more cool effect. We create quite a large point light capable of lightning a whole side of the cube.
+Compared to directional light, which gets emitted in a specific direction (but is quite weak and falling on a side of the cube creates a "flashlight" effect - you see small surface being affected), point light emits light in all directions, which creates a nice effect we can use - the light reflected in the cube will be larger, and always hitting surfaces - edges for an enhanced visual effect. We create quite a large point light capable of lightning a whole side of the cube.
 
-We can also add a second light for the undertones. Placing it below the cube ensures that we always have some part highlighted.
+Adding a second light enhances the undertones. Placing it below the cube ensures that we always have some part highlighted.
 
 ```javascript
 // Create the light
@@ -134,7 +134,7 @@ You can play with the material properties and lights (intensities, colors) to cr
 
 ## Making Baby Cubes
 
-Here comes the fun part. We will create another function which will call the rounded edges cube function in some nested loops and make 27 cubes. Let's go.
+Now, let's dive into the fun part. We will create another function which will call the rounded edges cube function in some nested loops and make 27 cubes. Let's go.
 
 ```javascript
 function makeCubes() {
@@ -204,7 +204,7 @@ Why does the resend cube look better?
 
 I encourage you to add these features and tag me in the results - perhaps on <a class="external" href="https://twitter.com/devslovecoffee" target="_blank">Twitter</a>. Have fun.
 
-Final code:
+Here is the final code:
 
 ```html
 <!DOCTYPE html>
