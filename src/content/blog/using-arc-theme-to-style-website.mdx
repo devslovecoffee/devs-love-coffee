@@ -5,7 +5,7 @@ description: Arc browser provides the theme variables in css. They can be used t
 excerpt: Arc browser provides the theme variables in css. Using the theme on any website is easy.
 pubDate: 'Apr 10 2024'
 ---
-import { Image } from 'astro:assets';
+import {Image} from 'astro:assets';
 
 Arc is the first browser that truly excites me. Up until then, the browsers I've used (basically all of them) felt uninspiring and struggled to engage users.  The websites shown were in contrast vibrant and engaging. Arc complements websites and enhances the whole browsing experience. Apart from its captivating looks, it's easy to use, has **great** performance, and I can customize it in various ways.
 
@@ -48,7 +48,7 @@ html[data-theme='light'] {
 }
 ```
 
-The variables are then used throughout the website. Here is an example of how I use the variables on the body of the website (the whole <a class="external" href="https://github.com/petttr1/devs-love-coffee/blob/main/src/styles/global.css" target="_blank">global.css can be seen in the repo</a>):
+The variables are then used throughout the website. Here is an example of how I use the variables on the body of the website (the whole <a class="external" href="https://github.com/devslovecoffee/devs-love-coffee/blob/main/src/styles/global.css" target="_blank">global.css can be seen in the repo</a>):
 ```css
 body {
 	background: var(--color-background);
@@ -73,7 +73,8 @@ html[data-theme='arc'] {
 Arc updates the variables instantly when the theme changes, recalculating CSS in real-time, as shown in the following gif:
 
 <figure>
-    <Image src="/blog/using-arc-theme-to-style-website/arc-colors.gif" width="640" alt="Changing the Arc Theme Changes All the Colors on the Website" />
+    <Image src="/blog/using-arc-theme-to-style-website/arc-colors.gif" width="640"
+           alt="Changing the Arc Theme Changes All the Colors on the Website"/>
     <figcaption>The effect changing Arc theme has on this website</figcaption>
 </figure>
 
@@ -83,4 +84,4 @@ To determine whether someone is using Arc and provide the option to switch on th
 const usingArc = getComputedStyle(document.documentElement).getPropertyValue('--arc-palette-background') !== '';
 ```
 
-Then I just check whether `usingArc` is `true`, and if so, the arc theme is applied. The whole logic can be seen in my `ThemeToggle` component <a class="external" href="https://github.com/petttr1/devs-love-coffee/blob/main/src/components/ThemeToggle.astro" target="_blank">here</a>.
+Then I just check whether `usingArc` is `true`, and if so, the arc theme is applied. The whole logic can be seen in my `ThemeToggle` component <a class="external" href="https://github.com/devslovecoffee/devs-love-coffee/blob/main/src/components/ThemeToggle.astro" target="_blank">here</a>.

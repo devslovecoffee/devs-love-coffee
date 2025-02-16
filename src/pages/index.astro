@@ -1,7 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/header/Header.astro';
-import { BLOG_DESCRIPTION } from '../consts';
+import {BLOG_DESCRIPTION} from '../consts';
 import BlogLinks from "../components/blog/BlogLinks.astro";
 import Links from "../components/Links.astro";
 import Projects from "../components/project/Projects.astro";
@@ -9,23 +9,42 @@ import Projects from "../components/project/Projects.astro";
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title="Home" description={BLOG_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main style="padding: 0 0 var(--space-l); min-height: 100vh; margin-top: var(--space-3xl);">
-			<h1 style="padding: 0 var(--space-s);">Hi! I’m Peter. Software engineer <a href="https://callstack.ai" class="external" target="_blank">@callstack.ai</a> driven by curiosity, always building, experimenting, and learning along the way, casual runner, and coffee drinker. Sometimes, I write about my learnings.</h1>
-			<h2 style="padding: 0 var(--space-s);">Recent Posts</h2>
-			<BlogLinks num={5} />
-			<h2 id="index-about" style="padding: 0 var(--space-s);">About</h2>
-			<p style="padding: 0 var(--space-s);">This site is statically generated with <a class="external" href="https://astro.build/" target="_blank">Astro</a>. Typescale and spacings are dynamically set using <a class="external" href="https://utopia.fyi/" target="_blank">Utopia</a>.</p>
-			<p style="padding: 0 var(--space-s);">Body copy is set in <a class="external" href="https://github.com/googlefonts/dm-fonts" target="_blank">DM Sans</a>. Italics are set in <a class="external" href="https://fonts.google.com/specimen/IBM+Plex+Serif/tester?stroke=Serif" target="_blank"><em>IBM Plex Serif</em></a>. Code is set in <a class="external" href="https://github.com/googlefonts/spacemono" target="_blank"><code>Space Mono</code></a>.</p>
-			<p style="padding: 0 var(--space-s);">The source code is available on <a class="external" href="https://github.com/petttr1/devs-love-coffee" target="_blank">Github</a>.</p>
-			<h2 style="padding: 0 var(--space-s);">Let's Connect</h2>
-			<Links />
-			<h2 id="index-projects" style="padding: 0 var(--space-s);">Projects</h2>
-			<Projects />
-		</main>
-	</body>
+<head>
+    <BaseHead title="Home" description={BLOG_DESCRIPTION}/>
+</head>
+<body>
+<Header/>
+<main style="padding: 0 0 var(--space-l); min-height: 100vh; margin-top: var(--space-3xl);">
+    <h1 style="padding: 0 var(--space-s);">Hi! I’m Peter. Software engineer <a href="https://callstack.ai"
+                                                                               class="external" target="_blank">@callstack.ai</a>
+        driven by curiosity, always building, experimenting, and learning along the way, casual runner, and coffee
+        drinker. Sometimes, I write about my learnings.</h1>
+    <h2 style="padding: 0 var(--space-s);">Recent Posts</h2>
+    <BlogLinks num={5}/>
+    <h2 id="index-about" style="padding: 0 var(--space-s);">About</h2>
+    <p style="padding: 0 var(--space-s);">This site is statically generated with <a class="external"
+                                                                                    href="https://astro.build/"
+                                                                                    target="_blank">Astro</a>. Typescale
+        and spacings are dynamically set using <a class="external" href="https://utopia.fyi/" target="_blank">Utopia</a>.
+    </p>
+    <p style="padding: 0 var(--space-s);">Body copy is set in <a class="external"
+                                                                 href="https://github.com/googlefonts/dm-fonts"
+                                                                 target="_blank">DM Sans</a>. Italics are set in <a
+            class="external" href="https://fonts.google.com/specimen/IBM+Plex+Serif/tester?stroke=Serif"
+            target="_blank"><em>IBM Plex Serif</em></a>. Code is set in <a class="external"
+                                                                           href="https://github.com/googlefonts/spacemono"
+                                                                           target="_blank"><code>Space Mono</code></a>.
+    </p>
+    <p style="padding: 0 var(--space-s);">The content is checked and edited by <a class="external"
+                                                                                  href="https://github.com/devslovecoffee/editor-ai"
+                                                                                  target="_blank">Editor AI</a>.</p>
+    <p style="padding: 0 var(--space-s);">The source code is available on <a class="external"
+                                                                             href="https://github.com/devslovecoffee/devs-love-coffee"
+                                                                             target="_blank">Github</a>.</p>
+    <h2 style="padding: 0 var(--space-s);">Let's Connect</h2>
+    <Links/>
+    <h2 id="index-projects" style="padding: 0 var(--space-s);">Projects</h2>
+    <Projects/>
+</main>
+</body>
 </html>

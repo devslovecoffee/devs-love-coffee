@@ -5,12 +5,12 @@ description: Developing Apple-inspired progressive blur for the web; Technical i
 excerpt: Technical insights and challenges of implementing progressive blur for your browser.
 pubDate: 'Apr 5 2024'
 ---
-import { Image } from 'astro:assets';
+import {Image} from 'astro:assets';
 
 Throughout the years, Apple often sets the benchmark for great design. They seem to always define (or at least popularize) a new trend, which then storms the world and everyone copies it. One of the trends, they seem to have doubled down on lately, is progressive blur. Some examples can be seen in the App Store, Apple Maps, and, most recently, the Apple visionOS. Seeing all that made me want to see whether it could also be done for the web (~~aka for the rest of the world not using swiftUI~~ <a class="external" href="https://news.ycombinator.com/item?id=39962411" target="_blank">for everyone else apart from Apple</a>).
 
 <figure>
-    <Image src="/blog/making-apple-progressive-blur-on-web/apple-blur.png" width="1080" alt="Examples of Apple Blur" />
+    <Image src="/blog/making-apple-progressive-blur-on-web/apple-blur.png" width="1080" alt="Examples of Apple Blur"/>
     <figcaption>Examples of Apple usages of progressive blur</figcaption>
 </figure>
 
@@ -25,12 +25,14 @@ My original solution, for this blog, was based on <a class="external" href="http
 At this point you may be asking: Why go through all the trouble of stacking blurs? Why not just use a single blur with a single mask? Well. <a class="external" href="https://www.purplesquirrels.com.au/2023/11/blur-gradient-with-css/" target="_blank">Here is an example</a> of what the effect looks like using only a single blur. The blurred part looks like bloom, the transition from blurred to non-blurred is almost invisible, and if you use a white color for the text (such as Apple uses), the readability of the text drops rapidly, mainly due to the high frequency (rapid transitions between colors) of the background.
 
 
-<Image src="/blog/making-apple-progressive-blur-on-web/image_11.png" width="1080" alt="Use of a single blur with alpha mask" />
+<Image src="/blog/making-apple-progressive-blur-on-web/image_11.png" width="1080"
+       alt="Use of a single blur with alpha mask"/>
 
 This is exactly what the progressive blur solves - more blur = lower frequency of the background = better readability of the text. Ok, so we can just blur it more and be done with it, right? Not really. Below is the same example with the blur set to `32px`, instead of the original `10px`. Now the blur is almost gone, and the image just looks a bit hazy. Essentially, we over-blurred it and have largely lost the effect we were trying to achieve.
 
 <figure>
-    <Image src="/blog/making-apple-progressive-blur-on-web/image_7.png" width="1080" alt="Use of a single blur with alpha mask and too high blur radius" />
+    <Image src="/blog/making-apple-progressive-blur-on-web/image_7.png" width="1080"
+           alt="Use of a single blur with alpha mask and too high blur radius"/>
     <figcaption>Too high blur radius</figcaption>
 </figure>
 
@@ -46,21 +48,24 @@ Only one possible conclusion could have come out of this: I need to make a progr
 My first step was to take the "static" blur and make the parameters editable in a simple and visual way. I have put together a simple site with some images (to thoroughly test the feel) and some sliders to fine-tune the blur. Internally, there were just multiple `divs` spawning on top of the image, each having its own backdrop filter with increasing blur radius, and a mask, using a linear gradient with alpha values.
 
 <figure>
-    <Image src="/blog/making-apple-progressive-blur-on-web/image_4.png" width="1080" alt="Initial design of progressive blur using backdrop filter" />
+    <Image src="/blog/making-apple-progressive-blur-on-web/image_4.png" width="1080"
+           alt="Initial design of progressive blur using backdrop filter"/>
     <figcaption>The initial design using backdrop filter</figcaption>
 </figure>
 
 This method performed effectively - it has produced the desired results and is not that heavy on the performance (not that I've measured anything, it just feels ok). It has just one tiny little problem. The moment we increase the `border-radius` of the wrapping element (while using the cutting-edge browser built by google), this happens:
 
 <figure>
-    <Image src="/blog/making-apple-progressive-blur-on-web/image_10.png" width="1080" alt="The broken progressive blur on chrome" />
+    <Image src="/blog/making-apple-progressive-blur-on-web/image_10.png" width="1080"
+           alt="The broken progressive blur on chrome"/>
     <figcaption>The result on chrome</figcaption>
 </figure>
 
 It appears that Chromium just can't deal with multiple stacked backdrop filters, masks, and `overflow: hidden` on the wrapping element. Not entirely sure why, but <a class="external" href="https://stackoverflow.com/a/73156812" target="_blank">one answer on stackoverflow</a> gives us some hints. It also made me try it on safari and firefox, both of which, much to my surprise, could have the border radius and progressive blur on at the same time. Chrome is unfortunately the most used browser, so we primarily needed a working solution for that one.
 
 <figure>
-    <Image src="/blog/making-apple-progressive-blur-on-web/image_8.png" width="1080" alt="The correct progressive blur on safari and firefox" />
+    <Image src="/blog/making-apple-progressive-blur-on-web/image_8.png" width="1080"
+           alt="The correct progressive blur on safari and firefox"/>
     <figcaption>The result on Safari and Firefox</figcaption>
 </figure>
 
@@ -68,28 +73,33 @@ It appears that Chromium just can't deal with multiple stacked backdrop filters,
 The alternate solution, which enables us to have border radius even in Chrome, is heavyweight (again, measuring only by vibes, but the page starts to be laggy sometimes, which is a pretty good indication for me), non-optimal, and just plainly shouldn't be used anywhere on the web. You have been warned.
 
 <figure>
-    <Image src="/blog/making-apple-progressive-blur-on-web/blur-layers.png" width="1080" alt="Visualization of the separate blur layers" />
+    <Image src="/blog/making-apple-progressive-blur-on-web/blur-layers.png" width="1080"
+           alt="Visualization of the separate blur layers"/>
     <figcaption>The stacked blur layers</figcaption>
 </figure>
 
 This approach achieves the desired progressive blur effect by stacking multiple divs with background image set to the original photo, and then applies blur + mask. Since it doesn't use backdrop filter, there are no shenanigans with the `border-radius` , which just works. The issue is that it spawns multiple images (that are the size of the original image) with large blur radii (sometimes even `512px`), on top of which it does some more operations, like masking. Below is the comparison of the two approaches - backdrop-filter on the left, blur on the right.
 
-<Image src="/blog/making-apple-progressive-blur-on-web/Frame_89.png" width="1080" alt="Comparison of different blur approaches" />
+<Image src="/blog/making-apple-progressive-blur-on-web/Frame_89.png" width="1080"
+       alt="Comparison of different blur approaches"/>
 
 They look pretty much the same, except for this part:
-<Image src="/blog/making-apple-progressive-blur-on-web/image_1729.png" width="1080" alt="Zoom in on the broken part of the blur" />
+<Image src="/blog/making-apple-progressive-blur-on-web/image_1729.png" width="1080"
+       alt="Zoom in on the broken part of the blur"/>
 
 This artefact comes from using the blur, which doesn't reach the edges (as there is no padding for the filter, it is just blurring it with the radius of `512px` and not reaching the edge). To deal with this, I have scaled the image up by the factor of `1.2`. No special reason to use 1.2, it just worked for most of the cases, while not cutting off too much of the image. It is still a tradeoff, but if we are using the progressively blurred image as a card, we can afford our image to be cut off. Below is the comparison with the scaled image using blurs:
 
-<Image src="/blog/making-apple-progressive-blur-on-web/Frame_891_1.png" width="1080" alt="comparison of the approaches, with the scaled image added" />
+<Image src="/blog/making-apple-progressive-blur-on-web/Frame_891_1.png" width="1080"
+       alt="comparison of the approaches, with the scaled image added"/>
 
 Another possible approach would be just to scale the blur. this way it would reach the bottom, still blur the image in the correct parts, and the original image could stay the same. Well, not exactly. It won't work in our case as the blurred image and the background image must precisely match. The blurred image is just the background image with alpha mask, meaning that at one point it will be trying to blend in with the original image, and any scale or position difference will be noticeable. See for yourself in the images below. On the left, only the blur is scaled, on the right both the blur and the image are scaled.
 
-<Image src="/blog/making-apple-progressive-blur-on-web/Frame_90.png" width="1080" alt="comparison of the scale approaches, with the broken part highlighted" />
+<Image src="/blog/making-apple-progressive-blur-on-web/Frame_90.png" width="1080"
+       alt="comparison of the scale approaches, with the broken part highlighted"/>
 
 ## The Generator
 The generator is straightforward. It takes the parameters input through the sliders, does some calculations for the alpha gradients of the masks, blur amounts, and the actual inserted divs with blur, and then displays the image with its blurry overlays. It then takes the parameters and generates the code you can copy to your website.
 
 You can play with it here: <a class="external" href="https://www.posterramen.com/progressive-blur" target="_blank">posterramen.com/progressive-blur</a>
 
-You can see <a class="external" href="https://github.com/petttr1/PosterRamen/tree/main/components/progressive-blur" target="_blank">the source code here</a>.
+You can see <a class="external" href="https://github.com/devslovecoffee/PosterRamen/tree/main/components/progressive-blur" target="_blank">the source code here</a>.
