@@ -60,27 +60,13 @@ const pageDescription = expandedPost
   </head>
   <body>
     <Header />
-    <main class="p-(--space-s) pb-(--space-l) min-h-screen mt-(--space-3xl)">
+    <main class="pb-(--space-l) min-h-screen mt-(--space-3xl)">
       <div class="w-full">
-        {
-          beforePosts.length > 0 && (
-            <section class="blog-section">
-              <ul class="blog-list">
-                {beforePosts.map((post) => (
-                  <li>
-                    <BlogLink post={post} />
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )
-        }
-
         {
           expandedPost && ExpandedContent && (
             <section class="my-(--space-m) px-(--space-s)">
               <div class="relative z-10">
-                <div class="mt-(--space-s) p-(--space-s) rounded-(--border-radius) bg-background">
+                <div class="mt-(--space-s) rounded-(--border-radius) bg-background">
                   <article class="prose">
                     <div class="prose__title">
                       <h1>{expandedPost.data.title}</h1>
@@ -106,9 +92,24 @@ const pageDescription = expandedPost
           )
         }
 
+        <h2 class="px-(--space-s) py-0">Read more</h2>
+        {
+          beforePosts.length > 0 && (
+            <section class="mb-0">
+              <ul class="blog-list">
+                {beforePosts.map((post) => (
+                  <li class="blog-item">
+                    <BlogLink post={post} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
         {
           afterPosts.length > 0 && (
-            <section class="blog-section">
+            <section class="mb-(--space-xl)">
               <ul class="blog-list">
                 {afterPosts.map((post) => (
                   <li class="blog-item">
@@ -123,49 +124,6 @@ const pageDescription = expandedPost
     </main>
 
     <style lang="scss">
-      .blog-section {
-        margin-bottom: var(--space-xl);
-      }
-
-      .section-title {
-        margin: var(--space-l) var(--space-s) var(--space-m);
-        color: var(--color-highlight);
-        font-size: var(--step-1);
-        font-weight: 600;
-        border-bottom: 2px solid var(--color-border);
-        padding-bottom: var(--space-xs);
-      }
-
-      .current-post {
-        position: relative;
-        z-index: 1;
-
-        &__header {
-          padding: var(--space-m) 0;
-          border-bottom: 1px solid var(--color-border);
-          margin-bottom: var(--space-m);
-        }
-
-        &__title {
-          color: var(--color-primary);
-          margin: 0 0 var(--space-xs) 0;
-          font-size: var(--step-2);
-          font-weight: 700;
-        }
-
-        &__date {
-          margin: 0 0 var(--space-s) 0;
-          color: var(--color-secondary);
-          font-style: italic;
-        }
-
-        &__excerpt {
-          margin: 0;
-          color: var(--color-secondary);
-          font-size: var(--step-0);
-        }
-      }
-
       .blog-list {
         width: 100%;
         list-style: none;

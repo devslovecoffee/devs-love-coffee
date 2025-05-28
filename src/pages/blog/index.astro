@@ -9,15 +9,10 @@ import BlogLinks from "../../components/blog/BlogLinks.astro";
 <html lang="en">
   <head>
     <BaseHead title="Blog | Devs Love Coffee" description={SITE_DESCRIPTION} />
-    <style lang="scss">
-      main {
-        padding: var(--space-s) 0;
-      }
-    </style>
   </head>
-  <body>
+  <body class="">
     <Header />
-    <main>
+    <main class="py-(--space-s) mt-(--space-3xl)">
       <section>
         <BlogLinks />
       </section>
