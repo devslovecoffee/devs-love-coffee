@@ -1,17 +1,24 @@
 ---
 import ProjectLink from "./ProjectLink.astro";
 ---
+
 <ul>
-    <li>
-        <ProjectLink title="Editor AI"
-                     description="Automate text optimization with Large Language Models."
-                     url="https://github.com/devslovecoffee/editor-ai" image="/projects/EAi.png"/>
-    </li>
-    <li>
-        <ProjectLink title="Poster Ramen"
-                     description="Poster Ramen is a set of single-purpose tools helping you quickly prototype and explore simple designs."
-                     url="https://www.posterramen.com/" image="/projects/PR.png"/>
-    </li>
+  <li>
+    <ProjectLink
+      title="Editor AI"
+      description="Automate text optimization with Large Language Models."
+      url="https://github.com/devslovecoffee/editor-ai"
+      image="/projects/EAi.png"
+    />
+  </li>
+  <li>
+    <ProjectLink
+      title="Poster Ramen"
+      description="Poster Ramen is a set of single-purpose tools helping you quickly prototype and explore simple designs."
+      url="https://www.posterramen.com/"
+      image="/projects/PR.png"
+    />
+  </li>
 </ul>
 <style lang="scss">
   ul {
@@ -25,21 +32,35 @@ import ProjectLink from "./ProjectLink.astro";
 
       &:after {
         transition: all 0.2s var(--easing);
-        content: '';
+        content: "";
         position: absolute;
         z-index: -1;
         bottom: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E") var(--color-highlight-24);
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
+          var(--color-highlight-24);
         filter: brightness(120%);
-        -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 2%, rgba(0, 0, 0, 1) 98%, rgba(0, 0, 0, 0) 100%);
-        mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 2%, rgba(0, 0, 0, 1) 98%, rgba(0, 0, 0, 0) 100%);
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 1) 2%,
+          rgba(0, 0, 0, 1) 98%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        mask-image: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 1) 2%,
+          rgba(0, 0, 0, 1) 98%,
+          rgba(0, 0, 0, 0) 100%
+        );
         opacity: 0;
 
-        html[data-theme='dark'] & {
-          background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E") var(--color-highlight-74);
+        html[data-theme="dark"] & {
+          background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
+            var(--color-highlight-74);
         }
       }
 
@@ -47,7 +68,8 @@ import ProjectLink from "./ProjectLink.astro";
         &:after {
           opacity: 1;
 
-          html[data-theme='dark'] &, html[data-theme='arc'] & {
+          html[data-theme="dark"] &,
+          html[data-theme="arc"] & {
             opacity: 0.35;
           }
         }

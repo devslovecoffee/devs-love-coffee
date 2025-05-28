@@ -1,3 +1,8 @@
+@import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variant light (&:where([data-theme=light], [data-theme=light] *));
+@custom-variant arc (&:where([data-theme=arc], [data-theme=arc] *));
+
 :root {
     --color-background: #F8F7F4;
     --color-primary: #092230;
@@ -38,6 +43,19 @@ html[data-theme='arc'] {
     --background-code-color: var(--arc-palette-backgroundExtra);
     --color-highlight-24: var(--arc-palette-hover);
     --color-highlight: var(--arc-palette-title);
+}
+
+@theme {
+    --color-background: var(--color-background);
+    --color-primary: var(--color-primary);
+    --color-secondary: var(--color-secondary);
+    --color-secondary-80: var(--color-secondary-80);
+    --color-code: var(--color-code);
+    --color-code-bg: var(--background-code-color);
+    --color-highlight: var(--color-highlight);
+    --color-highlight-24: var(--color-highlight-24);
+    --color-highlight-74: var(--color-highlight-74);
+    --ease-easing: var(--easing);
 }
 
 @font-face {
@@ -85,11 +103,11 @@ body {
     font-size: var(--step-0);
 }
 
-main {
+/* main {
     padding: var(--space-s);
     min-height: 100vh;
     margin-top: var(--space-3xl);
-}
+} */
 
 h1,
 h2,

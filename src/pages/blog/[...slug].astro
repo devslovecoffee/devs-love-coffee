@@ -1,20 +1,263 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { type CollectionEntry, getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/header/Header.astro";
+import { SITE_DESCRIPTION } from "../../consts";
+import FormattedDate from "../../components/blog/FormattedDate.astro";
+import BlogLink from "../../components/blog/BlogLink.astro";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
 }
-type Props = CollectionEntry<'blog'>;
+
+type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content } = await post.render();
+const expandedSlug = post.slug;
+
+// Get all blog posts
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Find the expanded post and render its content
+const expandedPost = posts.find((p) => p.slug === expandedSlug);
+let ExpandedContent = null;
+
+if (expandedPost) {
+  const { Content } = await expandedPost.render();
+  ExpandedContent = Content;
+}
+
+// Split posts into before/after current
+const currentPostIndex = posts.findIndex((p) => p.slug === expandedSlug);
+const beforePosts =
+  currentPostIndex > 0 ? posts.slice(0, currentPostIndex) : [];
+const afterPosts =
+  currentPostIndex >= 0 ? posts.slice(currentPostIndex + 1) : [];
+
+// Set up SEO title and description
+const pageTitle = expandedPost
+  ? `${expandedPost.data.title} |  Devs Love Coffee`
+  : "Blog | Devs Love Coffee";
+const pageDescription = expandedPost
+  ? expandedPost.data.description
+  : SITE_DESCRIPTION;
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={pageTitle}
+      description={pageDescription}
+      image={expandedPost?.data.image}
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="p-(--space-s) pb-(--space-l) min-h-screen mt-(--space-3xl)">
+      <div class="w-full">
+        {
+          beforePosts.length > 0 && (
+            <section class="blog-section">
+              <ul class="blog-list">
+                {beforePosts.map((post) => (
+                  <li>
+                    <BlogLink post={post} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          expandedPost && ExpandedContent && (
+            <section class="my-(--space-m) px-(--space-s)">
+              <div class="relative z-10">
+                <div class="mt-(--space-s) p-(--space-s) rounded-(--border-radius) bg-background">
+                  <article class="prose">
+                    <div class="prose__title">
+                      <h1>{expandedPost.data.title}</h1>
+                      <div class="prose__title__date">
+                        <FormattedDate date={expandedPost.data.pubDate} />
+                        {expandedPost.data.updatedDate && (
+                          <div class="prose__title__date__last-updated-on">
+                            Last updated on{" "}
+                            <FormattedDate
+                              date={expandedPost.data.updatedDate}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div class="prose__content">
+                      <ExpandedContent />
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </section>
+          )
+        }
+
+        {
+          afterPosts.length > 0 && (
+            <section class="blog-section">
+              <ul class="blog-list">
+                {afterPosts.map((post) => (
+                  <li class="blog-item">
+                    <BlogLink post={post} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </div>
+    </main>
+
+    <style lang="scss">
+      .blog-section {
+        margin-bottom: var(--space-xl);
+      }
+
+      .section-title {
+        margin: var(--space-l) var(--space-s) var(--space-m);
+        color: var(--color-highlight);
+        font-size: var(--step-1);
+        font-weight: 600;
+        border-bottom: 2px solid var(--color-border);
+        padding-bottom: var(--space-xs);
+      }
+
+      .current-post {
+        position: relative;
+        z-index: 1;
+
+        &__header {
+          padding: var(--space-m) 0;
+          border-bottom: 1px solid var(--color-border);
+          margin-bottom: var(--space-m);
+        }
+
+        &__title {
+          color: var(--color-primary);
+          margin: 0 0 var(--space-xs) 0;
+          font-size: var(--step-2);
+          font-weight: 700;
+        }
+
+        &__date {
+          margin: 0 0 var(--space-s) 0;
+          color: var(--color-secondary);
+          font-style: italic;
+        }
+
+        &__excerpt {
+          margin: 0;
+          color: var(--color-secondary);
+          font-size: var(--step-0);
+        }
+      }
+
+      .blog-list {
+        width: 100%;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .blog-item {
+        width: 100%;
+        padding: 0 var(--space-s);
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s ease;
+
+        &:after {
+          transition: all 0.1s var(--easing);
+          content: "";
+          position: absolute;
+          z-index: -1;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
+            var(--color-highlight-24);
+          filter: brightness(120%);
+          -webkit-mask-image: linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 1) 2%,
+            rgba(0, 0, 0, 1) 98%,
+            rgba(0, 0, 0, 0) 100%
+          );
+          mask-image: linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 1) 2%,
+            rgba(0, 0, 0, 1) 98%,
+            rgba(0, 0, 0, 0) 100%
+          );
+          opacity: 0;
+
+          html[data-theme="dark"] & {
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
+              var(--color-highlight-74);
+          }
+        }
+
+        &:hover {
+          &:after {
+            opacity: 1;
+            html[data-theme="dark"] &,
+            html[data-theme="arc"] & {
+              opacity: 0.35;
+            }
+          }
+        }
+      }
+
+      .prose {
+        width: min(100%, 45rem);
+        margin: auto;
+
+        &__title {
+          margin-bottom: 1em;
+          padding: 1em 0;
+          text-align: center;
+          line-height: 1;
+
+          h1 {
+            text-align: left;
+            color: var(--color-highlight);
+          }
+
+          &__date {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5em;
+            color: var(--color-secondary);
+            margin-top: var(--space-s);
+
+            &__last-updated-on {
+              font-style: italic;
+            }
+          }
+        }
+
+        &__content {
+          margin: auto auto var(--space-3xl);
+        }
+      }
+    </style>
+  </body>
+</html>

@@ -23,3 +23,5 @@ pnpm-debug.log*
 .vercel
 .idea
 .vscode
+
+.content-planning
