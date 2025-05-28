@@ -1,26 +1,21 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/header/Header.astro';
-import { SITE_DESCRIPTION } from '../../consts';
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/header/Header.astro";
+import { SITE_DESCRIPTION } from "../../consts";
 import BlogLinks from "../../components/blog/BlogLinks.astro";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title="Blog" description={SITE_DESCRIPTION} />
-		<style lang="scss">
-			main {
-				padding: var(--space-s) 0;
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<BlogLinks />
-			</section>
-		</main>
-	</body>
+  <head>
+    <BaseHead title="Blog | Devs Love Coffee" description={SITE_DESCRIPTION} />
+  </head>
+  <body class="">
+    <Header />
+    <main class="py-(--space-s) mt-(--space-3xl)">
+      <section>
+        <BlogLinks />
+      </section>
+    </main>
+  </body>
 </html>
