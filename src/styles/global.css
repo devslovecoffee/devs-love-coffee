@@ -3,24 +3,90 @@
 @custom-variant light (&:where([data-theme=light], [data-theme=light] *));
 @custom-variant arc (&:where([data-theme=arc], [data-theme=arc] *));
 
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/DMSans-SemiBold.ttf');
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/DMSans-Light.ttf');
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Space Grotesk';
+    src: url('/fonts/SpaceGrotesk-VariableFont_wght.ttf');
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Space Mono';
+    src: url('/fonts/SpaceMono-Regular.ttf');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'IBM Plex Serif';
+    src: url('/fonts/IBMPlexSerif-LightItalic.ttf');
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+}
+
 :root {
-    --color-background: #F8F7F4;
-    --color-primary: #092230;
-    --color-secondary: #54524F;
-    --color-secondary-80: rgba(84, 82, 79, 0.8);
+    --color-primary: #000000;
+    --color-secondary: #4C6879;
+    --color-background: #F5F8FA;
+    --color-highlight: #F96F62;
+    --color-accent: #E0A7AE;
+    --color-white: #FBFCFC;
+
     --color-code: #3C3B39;
     --background-code-color: rgba(119, 117, 112, 0.1);
-    --color-highlight: #FF6E50;
-    --color-highlight-24: rgba(255, 110, 80, 0.24);
-    --color-highlight-74: rgba(255, 110, 80, 0.74);
+
     --easing: cubic-bezier(.47, -0.01, 1, 1.26);
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-serif: 'IBM Plex Serif', serif;
+    --font-mono: 'Space Mono', monospace;
+
+    --step--2: clamp(0.4297rem, 0.7185rem + -0.1203vw, 0.6944rem);
+    --step--1: clamp(0.6953rem, 0.8459rem + -0.0627vw, 0.8333rem);
+    --step-0: clamp(1rem, 0.9886rem + 0.0568vw, 1.125rem);
+    --step-1: clamp(1.2rem, 1.1436rem + 0.2819vw, 1.8203rem);
+    --step-2: clamp(1.44rem, 1.3032rem + 0.6842vw, 2.9452rem);
+    --step-3: clamp(1.728rem, 1.4519rem + 1.3806vw, 4.7653rem);
+    --step-4: clamp(2.0736rem, 1.5612rem + 2.5621vw, 7.7102rem);
+    --step-5: clamp(2.4883rem, 1.5804rem + 4.5395vw, 12.4751rem);
+
+    --space-3xs: clamp(0.25rem, 0.2443rem + 0.0284vw, 0.3125rem);
+    --space-2xs: clamp(0.5rem, 0.4943rem + 0.0284vw, 0.5625rem);
+    --space-xs: clamp(0.75rem, 0.7386rem + 0.0568vw, 0.875rem);
+    --space-s: clamp(1rem, 0.9886rem + 0.0568vw, 1.125rem);
+    --space-m: clamp(1.5rem, 1.483rem + 0.0852vw, 1.6875rem);
+    --space-l: clamp(2rem, 1.9773rem + 0.1136vw, 2.25rem);
+    --space-xl: clamp(3rem, 2.9659rem + 0.1705vw, 3.375rem);
+    --space-2xl: clamp(4rem, 3.9545rem + 0.2273vw, 4.5rem);
+    --space-3xl: clamp(6rem, 5.9318rem + 0.3409vw, 6.75rem);
 }
 
 html[data-theme='light'] {
-    --color-background: #F8F7F4;
-    --color-primary: #092230;
-    --color-secondary: #54524F;
-    --color-secondary-80: rgba(84, 82, 79, 0.8);
+    /* --color-background: #F8F7F4; */
+    /* --color-primary: #092230; */
+    /* --color-secondary: #54524F; */
+    /* --color-secondary-80: rgba(84, 82, 79, 0.8); */
     --color-code: #3C3B39;
     --background-code-color: rgba(119, 117, 112, 0.1);
 }
@@ -49,74 +115,51 @@ html[data-theme='arc'] {
     --color-background: var(--color-background);
     --color-primary: var(--color-primary);
     --color-secondary: var(--color-secondary);
-    --color-secondary-80: var(--color-secondary-80);
+    --color-highlight: var(--color-highlight);
+    --color-accent: var(--color-accent);
+    --color-white: var(--color-white);
+
     --color-code: var(--color-code);
     --color-code-bg: var(--background-code-color);
-    --color-highlight: var(--color-highlight);
-    --color-highlight-24: var(--color-highlight-24);
-    --color-highlight-74: var(--color-highlight-74);
+
     --ease-easing: var(--easing);
-}
 
-@font-face {
-    font-family: 'DM Sans';
-    src: url('/fonts/DMSans-SemiBold.ttf');
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-}
+    --font-display: var(--font-display);
+    --font-body: var(--font-body);
+    --font-serif: var(--font-serif);
+    --font-mono: var(--font-mono);
 
-@font-face {
-    font-family: 'DM Sans';
-    src: url('/fonts/DMSans-Light.ttf');
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
-}
+    --text-step--2: var(--step--2);
+    --text-step--1: var(--step--1);
+    --text-step-0: var(--step-0);
+    --text-step-1: var(--step-1);
+    --text-step-2: var(--step-2);
+    --text-step-3: var(--step-3);
+    --text-step-4: var(--step-4);
+    --text-step-5: var(--step-5);
 
-@font-face {
-    font-family: 'Space Mono';
-    src: url('/fonts/SpaceMono-Regular.ttf');
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'IBM Plex Serif';
-    src: url('/fonts/IBMPlexSerif-LightItalic.ttf');
-    font-style: italic;
-    font-weight: 400;
-    font-display: swap;
+    --space-3xs: var(--space-3xs);
+    --space-2xs: var(--space-2xs);
+    --space-xs: var(--space-xs);
+    --space-s: var(--space-s);
+    --space-m: var(--space-m);
+    --space-l: var(--space-l);
+    --space-xl: var(--space-xl);
+    --space-2xl: var(--space-2xl);
+    --space-3xl: var(--space-3xl);
 }
 
 body {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    background: var(--color-background);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    color: var(--color-primary);
-    font-size: var(--step-0);
+    @apply font-body bg-background text-primary text-step-0;
 }
 
-/* main {
-    padding: var(--space-s);
-    min-height: 100vh;
-    margin-top: var(--space-3xl);
-} */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: var(--color-primary);
-    font-weight: 300;
+@layer components {
+    .internal-link {
+        @apply text-secondary hover:text-primary relative hover:underline;
+    }
+    .external-link {
+        @apply text-secondary hover:text-primary hover:after:translate-x-1 hover:after:translate-y-0 after:translate-y-1 relative after:content-['↗'] after:text-step--1 after:text-secondary after:absolute after:transition-all after:ease-easing after:duration-200;
+    }
 }
 
 .prose p,
@@ -183,60 +226,8 @@ b {
     font-weight: 600;
 }
 
-a {
-    color: var(--color-secondary);
-    position: relative;
-}
-
-a:hover {
-    color: var(--color-primary);
-}
-
-a:hover.internal::after,
-a:hover.external::after {
-    color: var(--color-primary);
-}
-
-a:hover.internal {
-    text-decoration: underline;
-}
-
-a:hover.external::after {
-    transform: translate(3px, 0px);
-}
-
-a.external {
-    margin-right: var(--space-2xs);
-}
-
-a.external::after {
-    position: absolute;
-    content: '↗';
-    font-size: var(--step--1);
-    color: var(--color-secondary);
-    transition: all 0.2s var(--easing);
-    transform: translate(0px, 3px);
-}
-
-p {
-    margin-top: var(--space-s);
-}
-
 em {
     font-family: 'IBM Plex Serif', serif;
-}
-
-textarea {
-    width: 100%;
-    font-size: 16px;
-}
-
-input {
-    font-size: 16px;
-}
-
-table {
-    width: 100%;
 }
 
 img {

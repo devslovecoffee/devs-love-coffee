@@ -10,13 +10,13 @@ pubDate: 'Jun 15 2023'
     <figcaption align = "center">The final result. Interactive. (code at the end of the post)</figcaption>
 </figure>
 
-Four months ago, on January 30th, I saw the <a class="external" href="https://resend.com" target="_blank">resend.com</a> webpage with the amazing looking 3D cube. My brain immediately kicked into gear trying to figure out how they did it.
+Four months ago, on January 30th, I saw the <a class="external-link" href="https://resend.com" target="_blank">resend.com</a> webpage with the amazing looking 3D cube. My brain immediately kicked into gear trying to figure out how they did it.
 
 4 months later, their recent launch rekindled my desire to steal it (Inspired by the concept of 'Steal Like an Artist'!). As I have some experience with Three.js, I went right in.
 
 ## Start With a Boilerplate
 
-This sets you up with the most basic scene - a single white cube, black background, and standard material on the cube, meaning you should see the shadows and stuff. Pretty neat. You're welcome. (I have actually stolen this and adapted it a bit from <a class="external" href="https://www.3dcodekits.com/simple-boilerplate-code-for-three-js-in-a-single-html-file/" target="_blank">3dcodekits</a>; thanks 3dcodekits, I love you!).
+This sets you up with the most basic scene - a single white cube, black background, and standard material on the cube, meaning you should see the shadows and stuff. Pretty neat. You're welcome. (I have actually stolen this and adapted it a bit from <a class="external-link" href="https://www.3dcodekits.com/simple-boilerplate-code-for-three-js-in-a-single-html-file/" target="_blank">3dcodekits</a>; thanks 3dcodekits, I love you!).
 
 ```html
 <!DOCTYPE html>
@@ -72,7 +72,7 @@ This sets you up with the most basic scene - a single white cube, black backgrou
 
 ## Making the Cube More Round
 
-Turns out, three js does not have a direct solution to this. So a quick google search yielded this neat little function (<a class="external" href="https://discourse.threejs.org/t/round-edged-box/1402" target="_blank">source</a>)
+Turns out, three js does not have a direct solution to this. So a quick google search yielded this neat little function (<a class="external-link" href="https://discourse.threejs.org/t/round-edged-box/1402" target="_blank">source</a>)
 
 ```javascript
 function createBoxWithRoundedEdges( width, height, depth, radius0, smoothness ) {
@@ -197,12 +197,12 @@ function animate() {
 
 Why does the resend cube look better?
 
-1. BLOOM - the glow effect you see coming off the cube is called bloom. In three js it is overly complicated to add (<a class="external" href="https://codepen.io/prisoner849/pen/LYLrawm" target="_blank">example_1</a>, <a class="external" href="https://threejs.org/examples/webgl_postprocessing_unreal_bloom" target="_blank">example_2</a>), and I was just too lazy. I have actually implemented it once in another project which I will perhaps share some other time.
+1. BLOOM - the glow effect you see coming off the cube is called bloom. In three js it is overly complicated to add (<a class="external-link" href="https://codepen.io/prisoner849/pen/LYLrawm" target="_blank">example_1</a>, <a class="external-link" href="https://threejs.org/examples/webgl_postprocessing_unreal_bloom" target="_blank">example_2</a>), and I was just too lazy. I have actually implemented it once in another project which I will perhaps share some other time.
 2. The mini cubes are not the same - resend has different geometry with the "squares" that are being extruded into cubes having rounded corners as well. Might be a good exercise for both you and me to try and make some other time.
 3. The effect of rotating layer - This looks cool and in theory could be made by always rotating just 1 layer -  right before rotating, you can flip the cube by a before-defined, random transformation turning it on one of the sides. This way you can create the effect that you always rotate a different side.
 4. Better lightning - Nailing the lightning is difficult, so I approximated the best I could (I gave it 2 minutes).
 
-I encourage you to add these features and tag me in the results - perhaps on <a class="external" href="https://twitter.com/devslovecoffee" target="_blank">Twitter</a>. Have fun.
+I encourage you to add these features and tag me in the results - perhaps on <a class="external-link" href="https://twitter.com/devslovecoffee" target="_blank">Twitter</a>. Have fun.
 
 Here is the final code:
 
@@ -309,5 +309,5 @@ Here is the final code:
 </html>
 ```
 
-<a class="internal" href="/blog//resend-cube-lookalike-part-2">Part 2 where I add the Bloom and Animation is live here</a>.
-<a class="internal" href="/blog/resend-cube-lookalike-part-3">Part 3 where we get as close to the real thing as possible here</a>.
+<a class="internal-link" href="/blog//resend-cube-lookalike-part-2">Part 2 where I add the Bloom and Animation is live here</a>.
+<a class="internal-link" href="/blog/resend-cube-lookalike-part-3">Part 3 where we get as close to the real thing as possible here</a>.

@@ -9,7 +9,7 @@ import { Image } from 'astro:assets';
 import ShaderRenderer from "../../components/blog/ShaderRenderer.astro";
 
 
-One of the most complex and intriguing parts of our new <a class="external" href="https://callstack.ai" target="_blank">callstack.ai</a> website is the `DeepCode Engine` card. It starts out as a blank, black section, and smoothly reveals its contents when scrolled into view, using multiple synchronised animations:
+One of the most complex and intriguing parts of our new <a class="external-link" href="https://callstack.ai" target="_blank">callstack.ai</a> website is the `DeepCode Engine` card. It starts out as a blank, black section, and smoothly reveals its contents when scrolled into view, using multiple synchronised animations:
 
 - Lottie animation with the "bubbles" plays.
 - A GLSL shader with the light rings plays.
@@ -20,7 +20,7 @@ You can see it in action in the video below.
 
 ## CSS Gradient vs Shader
 
-We initially began with an animation rendered with Cinema 4D and exported in the Lottie format (more on that later). Our initial idea was to animate a gradient background using css (<a class="external" href="https://dev.to/afif/we-can-finally-animate-css-gradient-kdk" target="_blank">since you can totally do that</a>) while the animation plays, but it just didn't feel right.
+We initially began with an animation rendered with Cinema 4D and exported in the Lottie format (more on that later). Our initial idea was to animate a gradient background using css (<a class="external-link" href="https://dev.to/afif/we-can-finally-animate-css-gradient-kdk" target="_blank">since you can totally do that</a>) while the animation plays, but it just didn't feel right.
 
 <figure>
     <div style="display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 8px;">
@@ -34,7 +34,7 @@ CSS gradients are linear, and stacking them can be less effective - we needed mo
 
 ## GLSL Shader
 
-The website theme focuses on physical phenomena, mainly light interactions with different mediums, such as <a class="external" href="https://en.wikipedia.org/wiki/Dispersion_(optics)" target="_blank">dispersion</a>. We aimed for the reveal animation to reflect that theme, so we have started with a simple light rings with simulated "dispersion".
+The website theme focuses on physical phenomena, mainly light interactions with different mediums, such as <a class="external-link" href="https://en.wikipedia.org/wiki/Dispersion_(optics)" target="_blank">dispersion</a>. We aimed for the reveal animation to reflect that theme, so we have started with a simple light rings with simulated "dispersion".
 
 The dispersion effect is achieved by drawing 3 concentric rings with slightly different radii. We then take one channel from each one and combine them into the final color, achieving the effect of light splitting into its components. It was love at first sight.
 
@@ -60,7 +60,7 @@ Additionally, we would have to use some magic constant to start the animation, a
 
 ### Passing a Uniform to the Shader
 
-We solved this by passing a <a class="external" href="https://www.khronos.org/opengl/wiki/Uniform_(GLSL)" target="_blank">uniform</a> to the shader, which controls the animation. The value we pass is calculated using a <a class="external" href="https://popmotion.io/#quick-start-animation-animate-spring-options" target="_blank">spring animation from the popmotion library</a>.
+We solved this by passing a <a class="external-link" href="https://www.khronos.org/opengl/wiki/Uniform_(GLSL)" target="_blank">uniform</a> to the shader, which controls the animation. The value we pass is calculated using a <a class="external-link" href="https://popmotion.io/#quick-start-animation-animate-spring-options" target="_blank">spring animation from the popmotion library</a>.
 
 Once the canvas is loaded, the animation is started, and on every "tick" the shader is updated with the calculated value. The simplified code appears as follows:
 
@@ -95,7 +95,7 @@ The outcome looks like this:
 
 ## Adding the Lottie Animation
 
-The final piece of the puzzle is the Lottie animation. We have used Cinema 4D to create the animation, and exported it as Lottie animation. We are using the <a class="external" href="https://github.com/airbnb/lottie-web" target="_blank">Lottie Web</a> library to play the animation.
+The final piece of the puzzle is the Lottie animation. We have used Cinema 4D to create the animation, and exported it as Lottie animation. We are using the <a class="external-link" href="https://github.com/airbnb/lottie-web" target="_blank">Lottie Web</a> library to play the animation.
 
 <figure>
     <iframe loading="lazy" title="Static stacked css gradients" src="/assets/shader/shader-lottie.html" width="100%" style="aspect-ratio: 1; border:none; border-radius: 12px; margin: 0;"></iframe>
@@ -136,4 +136,4 @@ We have a custom logic implemented that can fire an event when an element become
 
 ## Conclusion
 
-You can check the final result on our <a class="external" href="https://callstack.ai" target="_blank">callstack.ai</a> website. The reveal animation is a great example of how you can use multiple technologies and techniques to achieve a complex effect.
+You can check the final result on our <a class="external-link" href="https://callstack.ai" target="_blank">callstack.ai</a> website. The reveal animation is a great example of how you can use multiple technologies and techniques to achieve a complex effect.

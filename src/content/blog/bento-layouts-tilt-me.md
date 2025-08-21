@@ -6,13 +6,13 @@ excerpt: A short write-up of how to make cursor-facing, tilted tiles in a bento 
 pubDate: 'Sep 04 2023'
 ---
 
-I was recently playing around with Bento layouts (if you don't know what Bento layout / grid is, it's the new trend all the <a class="external" href="https://bentogrids.com" target="_blank">trendy designers</a> are doing, <a class="external" href="https://www.webdesignerdepot.com/2023/07/what-is-the-bento-ui-trend-and-how-can-you-get-started" target="_blank">catch up</a>) and actually automating the layout process - basically using grid-auto-flow on grid layout. Then I got an idea: "Could I make the tiles dynamically tilt towards the mouse pointer?" Why? - Why not? Let's do it.
+I was recently playing around with Bento layouts (if you don't know what Bento layout / grid is, it's the new trend all the <a class="external-link" href="https://bentogrids.com" target="_blank">trendy designers</a> are doing, <a class="external-link" href="https://www.webdesignerdepot.com/2023/07/what-is-the-bento-ui-trend-and-how-can-you-get-started" target="_blank">catch up</a>) and actually automating the layout process - basically using grid-auto-flow on grid layout. Then I got an idea: "Could I make the tiles dynamically tilt towards the mouse pointer?" Why? - Why not? Let's do it.
 
 Bento layouts actually don't tilt me, sorry. I just wanted to use this awesome clickbait opportunity for what I've made. This semi-demo and tutorial will guide you on achieving this interactive effect.
 
 ## Making a Single Tile Tilt
 
-Tilting a single tile is straightforward, and a talented developer - Armando Canals, <a class="external" href="https://armandocanals.com/posts/CSS-transform-rotating-a-3D-object-perspective-based-on-mouse-position.html" target="_blank">already did that</a>.
+Tilting a single tile is straightforward, and a talented developer - Armando Canals, <a class="external-link" href="https://armandocanals.com/posts/CSS-transform-rotating-a-3D-object-perspective-based-on-mouse-position.html" target="_blank">already did that</a>.
 
 All I needed to do was scale it by adding multiple tiles, inside a grid layout. The code is here, with the relevant parts described in the comments:
 
@@ -159,7 +159,7 @@ let calcY = (x - box.x - (box.width / 2)) / constrain;
 
 ## The End
 
-Thank you for diving into this quick tutorial. Now that you are a cool kid, tweet (X?) me your creative Bento grid designs <a class="external" href="https://x.com/devslovecoffee" target="_blank">@devslovecoffee</a>. 
+Thank you for diving into this quick tutorial. Now that you are a cool kid, tweet (X?) me your creative Bento grid designs <a class="external-link" href="https://x.com/devslovecoffee" target="_blank">@devslovecoffee</a>. 
 
 Explore my other posts and projects for more creative web design ideas ☕.
 

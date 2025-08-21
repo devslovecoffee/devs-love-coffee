@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 const { title, description, url, image } = Astro.props;
 ---
 
-<a class="project" href={url}>
+<a class="project border border-secondary" href={url}>
   <div class="project__title-wrapper">
     <h3 class="project__title-wrapper__title">{title}</h3>
   </div>
@@ -21,7 +21,6 @@ const { title, description, url, image } = Astro.props;
     </div>
   </div>
   <p class="project__description">{description}</p>
-  <hr />
 </a>
 <style lang="scss">
   .project {

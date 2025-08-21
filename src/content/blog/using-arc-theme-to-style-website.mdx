@@ -48,7 +48,7 @@ html[data-theme='light'] {
 }
 ```
 
-The variables are then used throughout the website. Here is an example of how I use the variables on the body of the website (the whole <a class="external" href="https://github.com/devslovecoffee/devs-love-coffee/blob/main/src/styles/global.css" target="_blank">global.css can be seen in the repo</a>):
+The variables are then used throughout the website. Here is an example of how I use the variables on the body of the website (the whole <a class="external-link" href="https://github.com/devslovecoffee/devs-love-coffee/blob/main/src/styles/global.css" target="_blank">global.css can be seen in the repo</a>):
 ```css
 body {
 	background: var(--color-background);
@@ -84,4 +84,4 @@ To determine whether someone is using Arc and provide the option to switch on th
 const usingArc = getComputedStyle(document.documentElement).getPropertyValue('--arc-palette-background') !== '';
 ```
 
-Then I just check whether `usingArc` is `true`, and if so, the arc theme is applied. The whole logic can be seen in my `ThemeToggle` component <a class="external" href="https://github.com/devslovecoffee/devs-love-coffee/blob/main/src/components/ThemeToggle.astro" target="_blank">here</a>.
+Then I just check whether `usingArc` is `true`, and if so, the arc theme is applied. The whole logic can be seen in my `ThemeToggle` component <a class="external-link" href="https://github.com/devslovecoffee/devs-love-coffee/blob/main/src/components/ThemeToggle.astro" target="_blank">here</a>.

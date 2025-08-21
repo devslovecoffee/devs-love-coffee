@@ -2,19 +2,37 @@
 import FormattedDate from "./FormattedDate.astro";
 
 const { post } = Astro.props;
-const { title, pubDate, excerpt} = post.data;
+const { title, pubDate, excerpt } = post.data;
 ---
-<a class="post" href={`/blog/${post.slug}`}>
-    <div class="post__title-wrapper">
-        <h2 class="post__title-wrapper__title">{title}</h2>
-        <p class="post__title-wrapper__date">
-            (<FormattedDate date={pubDate} />)
-        </p>
-    </div>
-    <p class="post__excerpt">{excerpt}</p>
-    <hr />
+
+<a
+  class="group/link flex items-center justify-between px-4 py-2.5 hover:py-2 hover:border-y border-accent"
+  href={`/blog/${post.slug}`}
+>
+  <div class="flex flex-col items-start">
+    <p class="text-highlight">
+      <FormattedDate date={pubDate} />
+    </p>
+    <p class="text-step-2 text-primary leading-none font-display font-light">
+      {title}
+    </p>
+    <p class="text-step-1 text-secondary">{excerpt}</p>
+  </div>
+  <svg
+    class="hidden group-hover/link:block w-auto h-full text-accent"
+    width="148"
+    height="100%"
+    viewBox="0 0 148 114"
+    fill="none"
+    stroke="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M147 62.7227L146.707 63.0156L98.5713 111.207L97.8643 111.915L97.1562 111.207L86.7539 100.793L86.0488 100.086L86.7539 99.3789L116.329 69.7705L116.396 69.7031L116.476 69.6494L122.782 65.377L122.465 64.4219L114.914 65.3438L114.854 65.3516H1V48.4443H114.866L114.938 48.4551L122.471 49.5586L122.782 48.6221L116.476 44.3506L116.396 44.2969L116.329 44.2295L86.7539 14.6211L86.0488 13.9141L86.7539 13.207L97.1562 2.79297L97.8643 2.08496L98.5713 2.79297L146.707 50.9844L147 51.2773V62.7227Z"
+      stroke-width="2"></path>
+  </svg>
 </a>
-<style lang="scss">
+<!-- <style lang="scss">
   .post {
     text-decoration: none;
     transition: 0.2s ease;
@@ -47,16 +65,16 @@ const { title, pubDate, excerpt} = post.data;
         flex-shrink: 0;
         position: relative;
 
-        @media(min-width: 768px) {
-            &:after {
-              position: absolute;
-              content: '→';
-              font-size: var(--step-1);
-              color: var(--color-primary);
-              transition: all 0.2s var(--easing);
-              transform: translate(0, -4px);
-              opacity: 0;
-            }
+        @media (min-width: 768px) {
+          &:after {
+            position: absolute;
+            content: "→";
+            font-size: var(--step-1);
+            color: var(--color-primary);
+            transition: all 0.2s var(--easing);
+            transform: translate(0, -4px);
+            opacity: 0;
+          }
         }
       }
     }
@@ -71,4 +89,4 @@ const { title, pubDate, excerpt} = post.data;
       margin: var(--space-3xs) 0 0;
     }
   }
-</style>
+</style> -->

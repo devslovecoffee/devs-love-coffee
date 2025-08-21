@@ -1,26 +1,33 @@
 ---
-import {getCollection} from "astro:content";
+import { getCollection } from "astro:content";
 import BlogLink from "./BlogLink.astro";
 interface Props {
-    num?: number | null;
+  num?: number | null;
 }
-const {num = null} = Astro.props;
+const { num = null } = Astro.props;
 
-const posts = (await getCollection('blog')).sort(
-(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 const displayPosts = num ? posts.slice(0, num) : posts;
 ---
+
 <ul>
-    {
-        displayPosts.map((post) => (
-                <li>
-                    <BlogLink post={post} />
-                </li>
-        ))
-    }
+  {
+    displayPosts.map((post) => (
+      <li>
+        <BlogLink post={post} />
+      </li>
+    ))
+  }
 </ul>
-{num && <a class="view-all internal" href="/blog">View {posts.length - displayPosts.length} more</a>}
+{
+  num && (
+    <a class="view-all internal-link" href="/blog">
+      View {posts.length - displayPosts.length} more
+    </a>
+  )
+}
 
 <style lang="scss">
   ul {
@@ -33,33 +40,43 @@ const displayPosts = num ? posts.slice(0, num) : posts;
 
       &:after {
         transition: all 0.1s var(--easing);
-        content: '';
+        content: "";
         position: absolute;
         z-index: -1;
         bottom: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background:
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
-                var(--color-highlight-24);
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
+          var(--color-highlight-24);
         filter: brightness(120%);
-        -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 2%, rgba(0,0,0,1) 98%, rgba(0,0,0,0) 100%);
-        mask-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 2%, rgba(0,0,0,1) 98%, rgba(0,0,0,0) 100%);
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 1) 2%,
+          rgba(0, 0, 0, 1) 98%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        mask-image: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 1) 2%,
+          rgba(0, 0, 0, 1) 98%,
+          rgba(0, 0, 0, 0) 100%
+        );
         opacity: 0;
 
-        html[data-theme='dark'] & {
-          background:
-                  url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
-                  var(--color-highlight-74);
+        html[data-theme="dark"] & {
+          background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
+            var(--color-highlight-74);
         }
       }
-
 
       &:hover {
         &:after {
           opacity: 1;
-          html[data-theme='dark'] &, html[data-theme='arc'] & {
+          html[data-theme="dark"] &,
+          html[data-theme="arc"] & {
             opacity: 0.35;
           }
         }
@@ -73,7 +90,7 @@ const displayPosts = num ? posts.slice(0, num) : posts;
     color: var(--color-highlight-74);
 
     &:hover {
-        color: var(--color-highlight)
+      color: var(--color-highlight);
     }
   }
 </style>
