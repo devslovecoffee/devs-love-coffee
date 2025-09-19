@@ -6,22 +6,24 @@ const { title, pubDate, excerpt } = post.data;
 ---
 
 <a
-  class="group/link flex items-center justify-between px-4 py-2.5 hover:py-2 hover:border-y border-accent"
+  class="group/link flex items-center justify-between py-2.5 hover:py-[9px] hover:border-y border-accent -mt-[1px]"
   href={`/blog/${post.slug}`}
 >
-  <div class="flex flex-col items-start">
-    <p class="text-highlight">
+  <div class="flex flex-col items-start overflow-hidden">
+    <p class="text-highlight font-mono">
       <FormattedDate date={pubDate} />
     </p>
-    <p class="text-step-2 text-primary leading-none font-display font-light">
+    <p
+      class="text-step-2 text-primary leading-normal font-display font-light max-w-full truncate"
+    >
       {title}
     </p>
-    <p class="text-step-1 text-secondary">{excerpt}</p>
+    <p class="text-step-1 text-secondary truncate">{excerpt}</p>
   </div>
   <svg
-    class="hidden group-hover/link:block w-auto h-full text-accent"
-    width="148"
-    height="100%"
+    class="hidden md:group-hover/link:block w-auto h-full text-accent"
+    width="auto"
+    height="80"
     viewBox="0 0 148 114"
     fill="none"
     stroke="currentColor"
@@ -32,61 +34,3 @@ const { title, pubDate, excerpt } = post.data;
       stroke-width="2"></path>
   </svg>
 </a>
-<!-- <style lang="scss">
-  .post {
-    text-decoration: none;
-    transition: 0.2s ease;
-
-    &:hover {
-      .post__title-wrapper__date::after {
-        opacity: 1;
-        transform: translate(8px, -4px);
-      }
-    }
-
-    &__title-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: baseline;
-      gap: var(--space-2xs);
-
-      @media (min-width: 768px) {
-        flex-direction: row;
-      }
-
-      &__title {
-        color: var(--color-primary);
-        line-height: 1;
-      }
-
-      &__date {
-        margin: 0;
-        color: var(--color-secondary);
-        flex-shrink: 0;
-        position: relative;
-
-        @media (min-width: 768px) {
-          &:after {
-            position: absolute;
-            content: "→";
-            font-size: var(--step-1);
-            color: var(--color-primary);
-            transition: all 0.2s var(--easing);
-            transform: translate(0, -4px);
-            opacity: 0;
-          }
-        }
-      }
-    }
-
-    &__excerpt {
-      padding-top: var(--space-s);
-      margin: 0;
-      color: var(--color-secondary);
-    }
-
-    hr {
-      margin: var(--space-3xs) 0 0;
-    }
-  }
-</style> -->

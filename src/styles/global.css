@@ -157,8 +157,9 @@ body {
     .internal-link {
         @apply text-secondary hover:text-primary relative hover:underline;
     }
+
     .external-link {
-        @apply text-secondary hover:text-primary hover:after:translate-x-1 hover:after:translate-y-0 after:translate-y-1 relative after:content-['↗'] after:text-step--1 after:text-secondary after:absolute after:transition-all after:ease-easing after:duration-200;
+        @apply text-secondary mr-2 hover:text-primary hover:after:translate-x-1 hover:after:translate-y-0 after:translate-y-1 relative after:content-['↗'] after:text-step--1 after:text-secondary after:absolute after:transition-all after:ease-easing after:duration-200;
     }
 }
 
@@ -197,11 +198,11 @@ body {
 }
 
 h1 {
-    font-size: var(--step-3);
+    font-size: var(--step-4);
 }
 
 h2 {
-    font-size: var(--step-2);
+    font-size: var(--step-3);
     color: var(--color-highlight);
     margin-top: var(--space-l);
 }

@@ -12,10 +12,10 @@ const posts = (await getCollection("blog")).sort(
 const displayPosts = num ? posts.slice(0, num) : posts;
 ---
 
-<ul>
+<ul class="w-full">
   {
     displayPosts.map((post) => (
-      <li>
+      <li class="w-full px-(--space-s) relative z-1">
         <BlogLink post={post} />
       </li>
     ))
@@ -23,74 +23,11 @@ const displayPosts = num ? posts.slice(0, num) : posts;
 </ul>
 {
   num && (
-    <a class="view-all internal-link" href="/blog">
+    <a
+      class="internal-link block px-(--space-s) mt-(--space-xs) text-highlight/75 hover:text-highlight"
+      href="/blog"
+    >
       View {posts.length - displayPosts.length} more
     </a>
   )
 }
-
-<style lang="scss">
-  ul {
-    width: 100%;
-    li {
-      width: 100%;
-      padding: 0 var(--space-s);
-      position: relative;
-      z-index: 1;
-
-      &:after {
-        transition: all 0.1s var(--easing);
-        content: "";
-        position: absolute;
-        z-index: -1;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
-          var(--color-highlight-24);
-        filter: brightness(120%);
-        -webkit-mask-image: linear-gradient(
-          90deg,
-          rgba(0, 0, 0, 0) 0%,
-          rgba(0, 0, 0, 1) 2%,
-          rgba(0, 0, 0, 1) 98%,
-          rgba(0, 0, 0, 0) 100%
-        );
-        mask-image: linear-gradient(
-          90deg,
-          rgba(0, 0, 0, 0) 0%,
-          rgba(0, 0, 0, 1) 2%,
-          rgba(0, 0, 0, 1) 98%,
-          rgba(0, 0, 0, 0) 100%
-        );
-        opacity: 0;
-
-        html[data-theme="dark"] & {
-          background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.29' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
-            var(--color-highlight-74);
-        }
-      }
-
-      &:hover {
-        &:after {
-          opacity: 1;
-          html[data-theme="dark"] &,
-          html[data-theme="arc"] & {
-            opacity: 0.35;
-          }
-        }
-      }
-    }
-  }
-  .view-all {
-    display: block;
-    padding: 0 var(--space-s);
-    margin-top: var(--space-xs);
-    color: var(--color-highlight-74);
-
-    &:hover {
-      color: var(--color-highlight);
-    }
-  }
-</style>
